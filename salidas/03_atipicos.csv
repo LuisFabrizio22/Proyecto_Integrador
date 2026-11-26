@@ -1,0 +1,5 @@
+variable,inferior,superior,n_atipicos_tukey,pct_atipicos_tukey,n_atipicos_mad
+presupuesto,-243016.18499999994,483227.19499999995,400,10.537407797681771,652
+oferentes,-8,16,416,10.95890410958904,527
+dias_licitacion,0.5,28.5,165,4.34668071654373,155
+dias_consultas,-0.5,11.5,285,7.507903055848261,285

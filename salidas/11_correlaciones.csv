@@ -1,0 +1,10 @@
+"","presupuesto","monto_adjudicado","num_adjudicaciones","num_proveedores","oferentes","dias_licitacion","dias_consultas","dias_adjudicacion","diferencia_pct"
+"presupuesto",1,NA,NA,NA,0.380657597871476,0.435776525982571,0.371763463661946,NA,NA
+"monto_adjudicado",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"num_adjudicaciones",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"num_proveedores",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"oferentes",0.380657597871476,NA,NA,NA,1,0.506070636439877,0.2377590149676,NA,NA
+"dias_licitacion",0.435776525982571,NA,NA,NA,0.506070636439877,1,0.690984900500619,NA,NA
+"dias_consultas",0.371763463661946,NA,NA,NA,0.2377590149676,0.690984900500619,1,NA,NA
+"dias_adjudicacion",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"diferencia_pct",NA,NA,NA,NA,NA,NA,NA,NA,NA

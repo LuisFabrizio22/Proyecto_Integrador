@@ -1,0 +1,417 @@
+=============================================
+PROYECTO INTEGRADOR - SERCOP 2025
+MINERIA DE TEXTOS Y TOPICOS LDA
+=============================================
+
+RESUMEN DEL CORPUS:
+# A tibble: 1 × 4
+  documentos textos_distintos caracteres_mediana caracteres_media
+       <int>            <int>              <dbl>            <dbl>
+1       3796             3739                135             148.
+
+RESUMEN DE TOKENS:
+# A tibble: 1 × 3
+  tokens vocabulario documentos_con_tokens
+   <int>       <int>                 <int>
+1  48524        6814                  3796
+
+PALABRAS FRECUENTES:
+# A tibble: 25 × 4
+   palabra           n rango frec_rel
+   <chr>         <int> <int>    <dbl>
+ 1 servicio        940     1  0.0194 
+ 2 mantenimiento   930     2  0.0192 
+ 3 cantón          825     3  0.0170 
+ 4 parroquia       760     4  0.0157 
+ 5 provincia       684     5  0.0141 
+ 6 construcción    678     6  0.0140 
+ 7 correctivo      381     7  0.00785
+ 8 san             380     8  0.00783
+ 9 maquinaria      351     9  0.00723
+10 canton          348    10  0.00717
+# ℹ 15 more rows
+# ℹ Use `print(n = ...)` to see more rows
+
+AJUSTE DE ZIPF:
+ (Intercept) log10(rango) 
+  -0.8625355   -0.9773646 
+
+TF-IDF POR GRUPO:
+# A tibble: 40 × 6
+   grupo palabra             n      tf   idf  tf_idf
+   <fct> <chr>           <int>   <dbl> <dbl>   <dbl>
+ 1 1     calle              82 0.0124  0.288 0.00358
+ 2 1     canalización       20 0.00304 0.693 0.00210
+ 3 1     telefónica         10 0.00152 1.39  0.00210
+ 4 1     arborización        8 0.00121 1.39  0.00168
+ 5 1     comunidad          38 0.00577 0.288 0.00166
+ 6 1     sector             36 0.00547 0.288 0.00157
+ 7 1     nombre             14 0.00213 0.693 0.00147
+ 8 1     mejoramiento       32 0.00486 0.288 0.00140
+ 9 1     hidrosanitarias    13 0.00197 0.693 0.00137
+10 1     bordillos          30 0.00455 0.288 0.00131
+11 2     pólizas            49 0.00336 0.693 0.00233
+12 2     incendio           40 0.00274 0.693 0.00190
+13 2     robo               40 0.00274 0.693 0.00190
+14 2     calle              94 0.00644 0.288 0.00185
+15 2     rotura             35 0.00240 0.693 0.00166
+16 2     responsabilidad    34 0.00233 0.693 0.00161
+17 2     fidelidad          31 0.00212 0.693 0.00147
+18 2     maquinaria         71 0.00486 0.288 0.00140
+19 2     seguros            71 0.00486 0.288 0.00140
+20 2     vehículos          70 0.00479 0.288 0.00138
+21 3     robo              171 0.00706 0.693 0.00489
+22 3     pólizas           167 0.00689 0.693 0.00478
+23 3     incendio          166 0.00685 0.693 0.00475
+24 3     rotura            147 0.00607 0.693 0.00420
+25 3     maquinaria        275 0.0113  0.288 0.00326
+26 3     aliadas           109 0.00450 0.693 0.00312
+27 3     equipo            262 0.0108  0.288 0.00311
+28 3     seguros           252 0.0104  0.288 0.00299
+29 3     asalto            104 0.00429 0.693 0.00297
+30 3     fidelidad         103 0.00425 0.693 0.00295
+31 4     vehículos          35 0.0113  0.288 0.00325
+32 4     aéreos             32 0.0103  0.288 0.00297
+33 4     nacionales         30 0.00967 0.288 0.00278
+34 4     eeq                 6 0.00193 1.39  0.00268
+35 4     combustible        27 0.00870 0.288 0.00250
+36 4     viajes             25 0.00806 0.288 0.00232
+37 4     mindray             5 0.00161 1.39  0.00223
+38 4     extra              17 0.00548 0.288 0.00158
+39 4     internacionales    16 0.00516 0.288 0.00148
+40 4     provincial         15 0.00484 0.288 0.00139
+
+BIGRAMAS FRECUENTES:
+# A tibble: 25 × 2
+   bigrama                      n
+   <chr>                    <int>
+ 1 mantenimiento preventivo   305
+ 2 equipo electrónico         149
+ 3 parque automotor           142
+ 4 agua potable               132
+ 5 responsabilidad civil      121
+ 6 aliadas robo               110
+ 7 dirección distrital        110
+ 8 gobierno autónomo           99
+ 9 autónomo descentralizado    95
+10 santa elena                 93
+# ℹ 15 more rows
+# ℹ Use `print(n = ...)` to see more rows
+
+BIGRAMAS POR GRUPO:
+# A tibble: 40 × 3
+   grupo bigrama                       n
+   <fct> <chr>                     <int>
+ 1 1     unidad educativa             31
+ 2 1     agua potable                 25
+ 3 1     dirección distrital          24
+ 4 1     coordinación zonal           23
+ 5 1     vivienda fiscal              23
+ 6 1     espacios públicos            18
+ 7 1     parroquia san                17
+ 8 1     barrio san                   14
+ 9 1     obras hidrosanitarias        13
+10 1     alcantarillado sanitario     12
+11 2     agua potable                 65
+12 2     mantenimiento preventivo     62
+13 2     santa elena                  56
+14 2     responsabilidad civil        33
+15 2     equipo electrónico           32
+16 2     gobierno autónomo            24
+17 2     varias calles                23
+18 2     alcantarillado sanitario     22
+19 2     autónomo descentralizado     22
+20 2     dirección distrital          22
+21 3     mantenimiento preventivo    169
+22 3     equipo electrónico          117
+23 3     aliadas robo                 96
+24 3     responsabilidad civil        88
+25 3     parque automotor             85
+26 3     gobierno autónomo            67
+27 3     autónomo descentralizado     65
+28 3     asalto equipo                64
+29 3     descentralizado municipal    63
+30 3     dirección distrital          61
+31 4     mantenimiento preventivo     66
+32 4     parque automotor             34
+33 4     pasajes aéreos               31
+34 4     aéreos nacionales            17
+35 4     mantenimiento correctivo     12
+36 4     combustible extra            10
+37 4     autónomo descentralizado      8
+38 4     descentralizado municipal     8
+39 4     gobierno autónomo             8
+40 4     preventivo correctivo         8
+
+PARTICION DEL CORPUS:
+# A tibble: 2 × 2
+  particion_lda     n
+  <chr>         <int>
+1 Entrenamiento  2971
+2 Validacion      743
+
+DIMENSIONES DTM:
+# A tibble: 2 × 3
+  conjunto      documentos terminos_presentes
+  <chr>              <int>              <int>
+1 Entrenamiento       2971               1148
+2 Validacion           742               1005
+
+PERPLEJIDAD DE MODELOS LDA:
+# A tibble: 5 × 2
+      k perplejidad
+  <dbl>       <dbl>
+1     3        378.
+2     6        312.
+3     9        309.
+4    12        303.
+5    15        304.
+
+NUMERO SELECCIONADO DE TOPICOS:
+[1] 12
+
+DIMENSIONES DTM FINAL:
+[1] 3713 1148
+
+PALABRAS REPRESENTATIVAS DE LOS TOPICOS:
+# A tibble: 12 × 2
+   topic
+   <int>
+ 1     1
+ 2     2
+ 3     3
+ 4     4
+ 5     5
+ 6     6
+ 7     7
+ 8     8
+ 9     9
+10    10
+11    11
+12    12
+   palabras                                                                      
+   <chr>                                                                         
+ 1 cantón, provincia, construcción, parroquia, parroquial, esmeraldas, rural, ca…
+ 2 mantenimiento, servicio, central, infraestructura, instalaciones, universidad…
+ 3 canton, provincia, san, parroquia, construccion, orellana, napo, sanitario, s…
+ 4 calle, san, parroquia, construcción, etapa, obras, calles, bordillos, vial, a…
+ 5 maquinaria, equipo, seguros, pólizas, robo, incendio, rotura, bienes, vehícul…
+ 6 santa, agua, centro, sistema, potable, elena, planta, cantón, sistemas, alcan…
+ 7 mantenimiento, servicio, correctivo, preventivo, parque, vehículos, automotor…
+ 8 mantenimiento, bomberos, cuerpo, salud, guayaquil, espacios, ciudad, reparaci…
+ 9 servicio, organización, eventos, culturales, desarrollo, cultural, ejecución,…
+10 servicio, municipal, pasajes, personal, gobierno, aéreos, agencia, nacional, …
+11 dirección, educación, perteneciente, unidad, zonal, educativa, distrital, man…
+12 parroquia, construcción, cantón, provincia, comunidad, cubierta, cancha, barr…
+
+TERMINOS Y PROBABILIDADES BETA:
+# A tibble: 120 × 3
+    topic term              beta
+    <int> <chr>            <dbl>
+  1     1 cantón          0.130 
+  2     1 provincia       0.119 
+  3     1 construcción    0.0562
+  4     1 parroquia       0.0415
+  5     1 parroquial      0.0296
+  6     1 esmeraldas      0.0272
+  7     1 rural           0.0261
+  8     1 canton          0.0213
+  9     1 ciudad          0.0199
+ 10     1 oro             0.0167
+ 11     2 mantenimiento   0.0827
+ 12     2 servicio        0.0431
+ 13     2 central         0.0336
+ 14     2 infraestructura 0.0326
+ 15     2 instalaciones   0.0277
+ 16     2 universidad     0.0248
+ 17     2 manabí          0.0202
+ 18     2 edificio        0.0200
+ 19     2 técnica         0.0196
+ 20     2 zona            0.0171
+ 21     3 canton          0.0541
+ 22     3 provincia       0.0539
+ 23     3 san             0.0522
+ 24     3 parroquia       0.0419
+ 25     3 construccion    0.0342
+ 26     3 orellana        0.0276
+ 27     3 napo            0.0223
+ 28     3 sanitario       0.0219
+ 29     3 sectores        0.0212
+ 30     3 alcantarillado  0.0209
+ 31     4 calle           0.0692
+ 32     4 san             0.0527
+ 33     4 parroquia       0.0448
+ 34     4 construcción    0.0441
+ 35     4 etapa           0.0356
+ 36     4 obras           0.0301
+ 37     4 calles          0.0282
+ 38     4 bordillos       0.0255
+ 39     4 vial            0.0255
+ 40     4 adoquinado      0.0211
+ 41     5 maquinaria      0.0698
+ 42     5 equipo          0.0666
+ 43     5 seguros         0.0650
+ 44     5 pólizas         0.0431
+ 45     5 robo            0.0421
+ 46     5 incendio        0.0411
+ 47     5 rotura          0.0363
+ 48     5 bienes          0.0357
+ 49     5 vehículos       0.0349
+ 50     5 electrónico     0.0301
+ 51     6 santa           0.0859
+ 52     6 agua            0.0781
+ 53     6 centro          0.0757
+ 54     6 sistema         0.0537
+ 55     6 potable         0.0505
+ 56     6 elena           0.0382
+ 57     6 planta          0.0313
+ 58     6 cantón          0.0275
+ 59     6 sistemas        0.0248
+ 60     6 alcantarillado  0.0244
+ 61     7 mantenimiento   0.114 
+ 62     7 servicio        0.102 
+ 63     7 correctivo      0.0883
+ 64     7 preventivo      0.0782
+ 65     7 parque          0.0576
+ 66     7 vehículos       0.0395
+ 67     7 automotor       0.0337
+ 68     7 combustible     0.0242
+ 69     7 repuestos       0.0215
+ 70     7 equipos         0.0202
+ 71     8 mantenimiento   0.0505
+ 72     8 bomberos        0.0469
+ 73     8 cuerpo          0.0440
+ 74     8 salud           0.0385
+ 75     8 guayaquil       0.0359
+ 76     8 espacios        0.0314
+ 77     8 ciudad          0.0292
+ 78     8 reparación      0.0267
+ 79     8 urbana          0.0238
+ 80     8 quito           0.0199
+ 81     9 servicio        0.0603
+ 82     9 organización    0.0368
+ 83     9 eventos         0.0341
+ 84     9 culturales      0.0326
+ 85     9 desarrollo      0.0299
+ 86     9 cultural        0.0293
+ 87     9 ejecución       0.0293
+ 88     9 servicios       0.0265
+ 89     9 proyecto        0.0236
+ 90     9 actividades     0.0233
+ 91    10 servicio        0.0594
+ 92    10 municipal       0.0578
+ 93    10 pasajes         0.0384
+ 94    10 personal        0.0359
+ 95    10 gobierno        0.0333
+ 96    10 aéreos          0.0323
+ 97    10 agencia         0.0308
+ 98    10 nacional        0.0301
+ 99    10 descentralizado 0.0296
+100    10 nacionales      0.0286
+101    11 dirección       0.0739
+102    11 educación       0.0655
+103    11 perteneciente   0.0571
+104    11 unidad          0.0562
+105    11 zonal           0.0462
+106    11 educativa       0.0457
+107    11 distrital       0.0454
+108    11 mantenimiento   0.0384
+109    11 coordinación    0.0356
+110    11 integral        0.0352
+111    12 parroquia       0.0942
+112    12 construcción    0.0818
+113    12 cantón          0.0625
+114    12 provincia       0.0498
+115    12 comunidad       0.0331
+116    12 cubierta        0.0328
+117    12 cancha          0.0328
+118    12 barrio          0.0324
+119    12 construccion    0.0230
+120    12 uso             0.0213
+
+COBERTURA DE TOPICOS:
+# A tibble: 1 × 5
+  documentos con_topico sin_topico cobertura_pct gamma_dominante_media
+       <int>      <int>      <int>         <dbl>                 <dbl>
+1       3796       3795          1         100.0                 0.590
+
+FRECUENCIA DE TOPICOS:
+# A tibble: 12 × 3
+   topico     n porcentaje
+    <int> <int>      <dbl>
+ 1      7   525      13.8 
+ 2     12   484      12.8 
+ 3      5   369       9.72
+ 4      9   366       9.64
+ 5      2   345       9.09
+ 6      4   315       8.30
+ 7     10   294       7.75
+ 8      1   268       7.06
+ 9      6   258       6.80
+10      3   232       6.11
+11     11   176       4.64
+12      8   163       4.30
+
+INFORMACION DE SESION:
+R version 4.6.1 (2026-06-24 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=Spanish_Ecuador.utf8  LC_CTYPE=Spanish_Ecuador.utf8   
+[3] LC_MONETARY=Spanish_Ecuador.utf8 LC_NUMERIC=C                    
+[5] LC_TIME=Spanish_Ecuador.utf8    
+
+time zone: America/Bogota
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] SnowballC_0.7.1     topicmodels_0.2-17  stopwords_2.3      
+ [4] tidytext_0.4.3      mclust_6.1.4        fpc_2.2-15         
+ [7] factoextra_2.2.0    cluster_2.1.8.2     lubridate_1.9.5    
+[10] forcats_1.0.1       stringr_1.6.0       purrr_1.2.2        
+[13] readr_2.2.0         tidyr_1.3.2         tibble_3.3.1       
+[16] ggplot2_4.0.4       tidyverse_2.0.0     corrplot_0.95      
+[19] patchwork_1.3.2     naniar_1.1.0        skimr_2.2.2        
+[22] recipes_1.4.0       dplyr_1.2.1         rsample_1.3.2      
+[25] data.table_1.18.6.1
+
+loaded via a namespace (and not attached):
+ [1] rlang_1.3.0         magrittr_2.0.5      furrr_0.4.0        
+ [4] otel_0.3.0          compiler_4.6.1      flexmix_2.3-21     
+ [7] reshape2_1.4.5      systemfonts_1.3.4   vctrs_0.7.3        
+[10] pkgconfig_2.0.3     crayon_1.5.3        fastmap_1.2.0      
+[13] backports_1.5.1     labeling_0.4.3      utf8_1.2.6         
+[16] prodlim_2026.03.11  tzdb_0.5.0          visdat_0.6.1       
+[19] ragg_1.5.2          bit_4.6.0           xfun_0.62          
+[22] modeltools_0.2-25   jsonlite_2.0.0      broom_1.0.13       
+[25] parallel_4.6.1      prabclus_2.3-5      R6_2.6.1           
+[28] stringi_1.8.9       RColorBrewer_1.1-3  parallelly_1.50.0  
+[31] car_3.1-5           rpart_4.1.27        diptest_0.77-2     
+[34] Rcpp_1.1.2          knitr_1.52          future.apply_1.21.0
+[37] base64enc_0.1-6     Matrix_1.7-5        splines_4.6.1      
+[40] nnet_7.3-20         timechange_0.4.0    tidyselect_1.2.1   
+[43] abind_1.4-8         rstudioapi_0.19.0   timeDate_4052.112  
+[46] codetools_0.2-20    listenv_1.1.0       plyr_1.8.9         
+[49] lattice_0.22-9      withr_3.0.3         S7_1.0.0           
+[52] evaluate_1.0.5      future_1.82.0       survival_3.8-6     
+[55] xml2_1.6.0          kernlab_0.9-33      pillar_1.11.1      
+[58] ggpubr_1.0.0        janeaustenr_1.0.0   carData_3.0-6      
+[61] stats4_4.6.1        NLP_0.3-3           generics_0.1.4     
+[64] vroom_1.7.1         hms_1.1.4           scales_1.4.0       
+[67] globals_0.20.0      slam_0.1-56         class_7.3-23       
+[70] glue_1.8.1          tools_4.6.1         tm_0.7-20          
+[73] tokenizers_0.3.0    robustbase_0.99-7   gower_1.0.2        
+[76] ggsignif_0.6.4      grid_4.6.1          ipred_0.9-16       
+[79] repr_1.1.7          Formula_1.2-6       cli_3.6.6          
+[82] textshaping_1.1.0   lava_1.11           gtable_0.3.6       
+[85] DEoptimR_1.2-2      rstatix_1.1.0       digest_0.6.39      
+[88] ggrepel_0.9.8       farver_2.1.2        htmltools_0.5.9    
+[91] lifecycle_1.0.5     hardhat_1.4.3       bit64_4.8.6        
+[94] MASS_7.3-65         sparsevctrs_0.4.0  

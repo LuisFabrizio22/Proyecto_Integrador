@@ -1,0 +1,10 @@
+variable,observaciones,inferior,superior,n_atipicos,pct_atipicos
+presupuesto,7529,-160876.22,315609.54000000004,945,12.551467658387569
+monto_adjudicado,0,NA,NA,NA,NA
+num_adjudicaciones,0,NA,NA,NA,NA
+num_proveedores,0,NA,NA,NA,NA
+oferentes,7529,-2,6,1018,13.52105193252756
+dias_licitacion,6167,-7.5,28.5,165,2.6755310523755473
+dias_consultas,5032,-1.5,10.5,330,6.558028616852146
+dias_adjudicacion,0,NA,NA,NA,NA
+diferencia_pct,0,NA,NA,NA,NA

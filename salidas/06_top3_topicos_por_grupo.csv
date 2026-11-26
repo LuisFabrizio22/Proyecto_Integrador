@@ -1,0 +1,13 @@
+grupo,topico,n,porcentaje,nombre_topico,nombre_corto,nombre_grupo
+1,12,139,24.385964912280702,Infraestructura comunitaria y deportiva,Infraestructura comunitaria,Obras con alta participacion
+1,2,100,17.54385964912281,Mantenimiento de edificios e instalaciones,Edificios e instalaciones,Obras con alta participacion
+1,4,75,13.157894736842104,Infraestructura vial y adoquinado,Infraestructura vial,Obras con alta participacion
+2,2,146,13.431462741490341,Mantenimiento de edificios e instalaciones,Edificios e instalaciones,Contrataciones de alto presupuesto
+2,4,138,12.695492180312787,Infraestructura vial y adoquinado,Infraestructura vial,Contrataciones de alto presupuesto
+2,7,109,10.027598896044159,Mantenimiento vehicular y parque automotor,Mantenimiento vehicular,Contrataciones de alto presupuesto
+3,5,286,15.253333333333334,"Seguros de bienes, maquinaria y equipos",Seguros,Menor presupuesto y baja participacion
+3,7,281,14.986666666666666,Mantenimiento vehicular y parque automotor,Mantenimiento vehicular,Menor presupuesto y baja participacion
+3,9,258,13.76,Eventos culturales y desarrollo social,Eventos culturales,Menor presupuesto y baja participacion
+4,7,124,47.148288973384034,Mantenimiento vehicular y parque automotor,Mantenimiento vehicular,Participacion minima y plazos prolongados
+4,10,54,20.53231939163498,Pasajes aereos y servicios administrativos,Pasajes y administracion,Participacion minima y plazos prolongados
+4,9,32,12.167300380228136,Eventos culturales y desarrollo social,Eventos culturales,Participacion minima y plazos prolongados

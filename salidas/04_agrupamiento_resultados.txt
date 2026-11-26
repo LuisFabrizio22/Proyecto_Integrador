@@ -1,0 +1,247 @@
+=============================================
+PROYECTO INTEGRADOR - SERCOP 2025
+AGRUPAMIENTO Y VALIDACION
+=============================================
+
+DIMENSIONES ENTRENAMIENTO:
+[1] 2845    4
+
+DIMENSIONES PRUEBA:
+[1] 951   4
+
+VARIABLES UTILIZADAS:
+[1] "presupuesto"     "oferentes"       "dias_licitacion" "dias_consultas" 
+
+ESTADISTICO DE HOPKINS:
+# A tibble: 1 × 4
+  minimo media mediana maximo
+   <dbl> <dbl>   <dbl>  <dbl>
+1  0.996 0.999   1.000  1.000
+
+CORRELACION COFENETICA WARD:
+[1] 0.5198173
+
+INDICES INTERNOS:
+# A tibble: 18 × 9
+   metodo      k silueta calinski_harabasz    dunn silueta_negativa_pct grupo_minimo grupo_maximo grupo_minimo_pct
+   <chr>   <int>   <dbl>             <dbl>   <dbl>                <dbl>        <int>        <int>            <dbl>
+ 1 K-means     2   0.294             1138. 0.00232                 6.05         1161         1684            40.8 
+ 2 K-means     3   0.323             1271. 0.00161                 1.27          209         1556             7.35
+ 3 K-means     4   0.343             1420. 0.00349                 1.72          202         1398             7.10
+ 4 K-means     5   0.297             1404. 0.00408                 1.37          158         1049             5.55
+ 5 K-means     6   0.274             1347. 0.00829                 4.36          150          679             5.27
+ 6 K-means     7   0.274             1315. 0.00728                 4.57           65          658             2.28
+ 7 K-means     8   0.266             1267. 0.00739                 4.67           65          623             2.28
+ 8 K-means     9   0.272             1250. 0.00739                 2.21           65          619             2.28
+ 9 K-means    10   0.272             1241. 0.00901                 2.85           64          496             2.25
+10 Ward        2   0.257              833. 0.0125                 13.1          1200         1645            42.2 
+11 Ward        3   0.281             1027. 0.0156                  9.95          119         1645             4.18
+12 Ward        4   0.303             1188. 0.0199                  9.91          119         1645             4.18
+13 Ward        5   0.252             1217. 0.0139                 12.0           119         1140             4.18
+14 Ward        6   0.216             1149. 0.0139                 15.7           119          748             4.18
+15 Ward        7   0.216             1095. 0.0139                 15.1           119          596             4.18
+16 Ward        8   0.215             1080. 0.0139                 15.2           119          544             4.18
+17 Ward        9   0.216             1040. 0.0148                 15.0           119          544             4.18
+18 Ward       10   0.220             1020. 0.0148                 14.7            75          544             2.64
+
+METODO DEL CODO:
+# A tibble: 10 × 2
+       k    WSS
+   <dbl>  <dbl>
+ 1     1 11376 
+ 2     2  8124.
+ 3     3  6004.
+ 4     4  4552.
+ 5     5  3820.
+ 6     6  3374.
+ 7     7  3009.
+ 8     8  2757.
+ 9     9  2514.
+10    10  2302.
+
+ESTADISTICO GAP:
+# A tibble: 10 × 5
+    logW E.logW   gap  SE.sim     k
+   <dbl>  <dbl> <dbl>   <dbl> <int>
+ 1  7.49   8.30 0.818 0.00543     1
+ 2  7.30   8.04 0.734 0.00445     2
+ 3  7.18   7.95 0.778 0.00428     3
+ 4  7.05   7.88 0.834 0.00440     4
+ 5  6.96   7.82 0.858 0.00417     5
+ 6  6.89   7.76 0.869 0.00394     6
+ 7  6.85   7.72 0.868 0.00380     7
+ 8  6.81   7.67 0.863 0.00380     8
+ 9  6.76   7.63 0.868 0.00375     9
+10  6.72   7.60 0.877 0.00385    10
+
+K RECOMENDADO POR GAP:
+[1] 1
+
+MEJORES MODELOS:
+# A tibble: 2 × 9
+  metodo      k silueta calinski_harabasz    dunn silueta_negativa_pct grupo_minimo grupo_maximo grupo_minimo_pct
+  <chr>   <int>   <dbl>             <dbl>   <dbl>                <dbl>        <int>        <int>            <dbl>
+1 K-means     4   0.343             1420. 0.00349                 1.72          202         1398             7.10
+2 Ward        2   0.257              833. 0.0125                 13.1          1200         1645            42.2 
+
+MODELO SELECCIONADO:
+# A tibble: 1 × 9
+  metodo      k silueta calinski_harabasz    dunn silueta_negativa_pct grupo_minimo grupo_maximo grupo_minimo_pct
+  <chr>   <int>   <dbl>             <dbl>   <dbl>                <dbl>        <int>        <int>            <dbl>
+1 K-means     4   0.343             1420. 0.00349                 1.72          202         1398             7.10
+
+ARI ENTRE MODELOS:
+[1] 0.51753
+
+ESTABILIDAD BOOTSTRAP:
+# A tibble: 6 × 4
+  metodo  grupo jaccard interpretacion      
+  <chr>   <int>   <dbl> <chr>               
+1 K-means     1   0.980 Muy estable         
+2 K-means     2   0.976 Muy estable         
+3 K-means     3   0.973 Muy estable         
+4 K-means     4   0.962 Muy estable         
+5 Ward        1   0.776 Estable             
+6 Ward        2   0.703 Estabilidad moderada
+
+EVALUACION INDEPENDIENTE:
+# A tibble: 2 × 7
+  metodo      k grupos_presentes n_prueba silueta_prueba silueta_entrenamiento diferencia
+  <chr>   <int>            <int>    <int>          <dbl>                 <dbl>      <dbl>
+1 K-means     4                4      951          0.343                 0.343  -0.000553
+2 Ward        2                2      951          0.291                 0.257   0.0340  
+
+CENTROIDES ESTANDARIZADOS:
+  presupuesto oferentes dias_licitacion dias_consultas
+1      -0.127     1.882          -0.218         -0.031
+2       1.182    -0.037           0.615          0.170
+3      -0.560    -0.386          -0.582         -0.475
+4      -0.821    -0.895           1.888          2.635
+
+TAMANOS DE GRUPOS:
+# A tibble: 4 × 3
+  grupo     n porcentaje
+  <fct> <int>      <dbl>
+1 1       571      15.0 
+2 2      1087      28.6 
+3 3      1875      49.4 
+4 4       263       6.93
+
+PERFIL DE GRUPOS:
+# A tibble: 4 × 14
+  grupo     n presupuesto_mediano presupuesto_medio presupuesto_total oferentes_mediana oferentes_media un_oferente_pct licitacion_mediana consultas_mediana monto_reportado_mediano
+  <fct> <int>               <dbl>             <dbl>             <dbl>             <dbl>           <dbl>           <dbl>              <dbl>             <dbl>                   <dbl>
+1 1       571              74238.           102040.         58264896.                24           49.5              0                   13                 6                  72654.
+2 2      1087             385521.           782703.        850797700.                 3            4.90            17.7                 18                 6                 353701.
+3 3      1875              38648.            53224.         99795763.                 2            2.88            38.0                 12                 5                  34759.
+4 4       263              28000             57114.         15021036.                 1            1.11            98.1                 27                23                  25000 
+  diferencia_pct_mediana cobertura_monto_pct proveedores_mediana
+                   <dbl>               <dbl>               <dbl>
+1                  0                    92.3                   1
+2                  3.00                 88.8                   1
+3                  0.510                94.0                   1
+4                  2.44                 94.3                   1
+
+PERFIL POR MODALIDAD:
+# A tibble: 14 × 4
+   grupo modalidad                 n porcentaje
+   <fct> <fct>                 <int>      <dbl>
+ 1 1     Cotización               30      5.25 
+ 2 1     Licitación               53      9.28 
+ 3 1     Menor Cuantía           488     85.5  
+ 4 2     Cotización              555     51.1  
+ 5 2     Licitación              304     28.0  
+ 6 2     Licitación de Seguros   102      9.38 
+ 7 2     Menor Cuantía           126     11.6  
+ 8 3     Cotización              221     11.8  
+ 9 3     Licitación              347     18.5  
+10 3     Licitación de Seguros   364     19.4  
+11 3     Menor Cuantía           943     50.3  
+12 4     Licitación                1      0.380
+13 4     Licitación de Seguros     2      0.760
+14 4     Menor Cuantía           260     98.9  
+
+PERFIL POR CATEGORIA:
+# A tibble: 11 × 4
+   grupo categoria     n porcentaje
+   <fct> <fct>     <int>      <dbl>
+ 1 1     services      2      0.350
+ 2 1     works       569     99.6  
+ 3 2     goods        34      3.13 
+ 4 2     services    417     38.4  
+ 5 2     works       636     58.5  
+ 6 3     goods        56      2.99 
+ 7 3     services   1086     57.9  
+ 8 3     works       733     39.1  
+ 9 4     goods        13      4.94 
+10 4     services    246     93.5  
+11 4     works         4      1.52 
+
+PERFIL POR ESTADO:
+# A tibble: 8 × 4
+  grupo estado       n porcentaje
+  <fct> <fct>    <int>      <dbl>
+1 1     active     538      94.2 
+2 1     complete    33       5.78
+3 2     active    1028      94.6 
+4 2     complete    59       5.43
+5 3     active    1712      91.3 
+6 3     complete   163       8.69
+7 4     active     241      91.6 
+8 4     complete    22       8.37
+
+PERFIL POR METODO:
+# A tibble: 8 × 4
+  grupo metodo        n porcentaje
+  <fct> <fct>     <int>      <dbl>
+1 1     open         83      14.5 
+2 1     selective   488      85.5 
+3 2     open        961      88.4 
+4 2     selective   126      11.6 
+5 3     open        932      49.7 
+6 3     selective   943      50.3 
+7 4     open          3       1.14
+8 4     selective   260      98.9 
+
+DOCUMENTOS PARA MINERIA DE TEXTOS:
+# A tibble: 4 × 3
+  grupo documentos textos_distintos
+  <fct>      <int>            <int>
+1 1            571              556
+2 2           1087             1071
+3 3           1875             1856
+4 4            263              263
+
+INFORMACION DE SESION:
+R version 4.6.1 (2026-06-24 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=Spanish_Ecuador.utf8  LC_CTYPE=Spanish_Ecuador.utf8    LC_MONETARY=Spanish_Ecuador.utf8 LC_NUMERIC=C                     LC_TIME=Spanish_Ecuador.utf8    
+
+time zone: America/Bogota
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] mclust_6.1.4        fpc_2.2-15          factoextra_2.2.0    cluster_2.1.8.2     lubridate_1.9.5     forcats_1.0.1       stringr_1.6.0       purrr_1.2.2         readr_2.2.0        
+[10] tidyr_1.3.2         tibble_3.3.1        ggplot2_4.0.4       tidyverse_2.0.0     corrplot_0.95       patchwork_1.3.2     naniar_1.1.0        skimr_2.2.2         recipes_1.4.0      
+[19] dplyr_1.2.1         rsample_1.3.2       data.table_1.18.6.1
+
+loaded via a namespace (and not attached):
+ [1] rlang_1.3.0         magrittr_2.0.5      furrr_0.4.0         otel_0.3.0          compiler_4.6.1      flexmix_2.3-21      systemfonts_1.3.4   vctrs_0.7.3         pkgconfig_2.0.3    
+[10] crayon_1.5.3        fastmap_1.2.0       backports_1.5.1     labeling_0.4.3      utf8_1.2.6          prodlim_2026.03.11  tzdb_0.5.0          visdat_0.6.1        ragg_1.5.2         
+[19] bit_4.6.0           xfun_0.62           modeltools_0.2-25   jsonlite_2.0.0      broom_1.0.13        parallel_4.6.1      prabclus_2.3-5      R6_2.6.1            stringi_1.8.9      
+[28] RColorBrewer_1.1-3  parallelly_1.50.0   car_3.1-5           rpart_4.1.27        diptest_0.77-2      Rcpp_1.1.2          knitr_1.52          future.apply_1.21.0 base64enc_0.1-6    
+[37] Matrix_1.7-5        splines_4.6.1       nnet_7.3-20         timechange_0.4.0    tidyselect_1.2.1    abind_1.4-8         rstudioapi_0.19.0   timeDate_4052.112   codetools_0.2-20   
+[46] listenv_1.1.0       lattice_0.22-9      withr_3.0.3         S7_1.0.0            evaluate_1.0.5      future_1.82.0       survival_3.8-6      kernlab_0.9-33      pillar_1.11.1      
+[55] ggpubr_1.0.0        carData_3.0-6       stats4_4.6.1        generics_0.1.4      vroom_1.7.1         hms_1.1.4           scales_1.4.0        globals_0.20.0      class_7.3-23       
+[64] glue_1.8.1          tools_4.6.1         robustbase_0.99-7   gower_1.0.2         ggsignif_0.6.4      grid_4.6.1          ipred_0.9-16        repr_1.1.7          Formula_1.2-6      
+[73] cli_3.6.6           textshaping_1.1.0   lava_1.11           gtable_0.3.6        DEoptimR_1.2-2      rstatix_1.1.0       digest_0.6.39       ggrepel_0.9.8       farver_2.1.2       
+[82] htmltools_0.5.9     lifecycle_1.0.5     hardhat_1.4.3       bit64_4.8.6         MASS_7.3-65         sparsevctrs_0.4.0  

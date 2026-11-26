@@ -1,0 +1,7 @@
+metodo,grupo,jaccard,interpretacion
+K-means,1,0.979771508337947,Muy estable
+K-means,2,0.9764425061130686,Muy estable
+K-means,3,0.9727306696362062,Muy estable
+K-means,4,0.9620730829479117,Muy estable
+Ward,1,0.7758985027684767,Estable
+Ward,2,0.7029318797257246,Estabilidad moderada

@@ -1,0 +1,78 @@
+DIAGNOSTICO COMPLEMENTARIO SERCOP 2025
+
+ADJUDICACIONES POR ESTADO:
+# A tibble: 1 × 7
+  estado_award registros procedimientos montos_disponibles montos_positivos_usd monto_mediano fechas_disponibles
+  <chr>            <int>          <int>              <int>                <int>         <dbl>              <int>
+1 NO_INFORMADO      7731           7027               7731                 7731         35910               5709
+
+COBERTURA DE ADJUDICACIONES:
+# A tibble: 1 × 3
+  candidatos procedimientos_con_adjudicacion procedimientos_con_monto_usd
+       <int>                           <int>                        <int>
+1       7529                            7027                         7027
+
+ESTADOS DE LOS PROCEDIMIENTOS:
+# A tibble: 8 × 4
+  estado   estado_award metodo        n
+  <fct>    <chr>        <fct>     <int>
+1 active   NO_INFORMADO direct     2928
+2 active   NO_INFORMADO open       1941
+3 active   NO_INFORMADO selective  1874
+4 complete NO_INFORMADO direct      459
+5 active   NO_INFORMADO limited     185
+6 complete NO_INFORMADO open        183
+7 complete NO_INFORMADO selective   148
+8 complete NO_INFORMADO limited      13
+
+COBERTURA DE PROVEEDORES:
+# A tibble: 1 × 3
+  registros procedimientos identificadores_disponibles
+      <int>          <int>                       <int>
+1      7731           7027                        7731
+
+DISPONIBILIDAD DE MONTOS:
+# A tibble: 3 × 4
+  variable              disponibles positivos mediana
+  <chr>                       <int>     <int>   <dbl>
+1 amount                       7731      7731   35910
+2 correctedValue_amount           0         0      NA
+3 enteredValue_amount             0         0      NA
+
+COBERTURA NUMERICA:
+# A tibble: 1 × 5
+  total presupuesto_oferentes con_licitacion con_consultas cuatro_variables
+  <int>                 <int>          <int>         <int>            <int>
+1  7529                  7529           6167          5032             3796
+
+FALTANTES POR MODALIDAD:
+# A tibble: 18 × 5
+   modalidad                                                      registros falta_licitacion falta_consultas completos
+   <chr>                                                              <int>            <int>           <int>     <int>
+ 1 Menor Cuantía                                                       1823                0               6      1817
+ 2 Contratacion directa                                                 974              974              60         0
+ 3 Bienes y Servicios únicos                                            858               12             858         0
+ 4 Cotización                                                           806                0               0       806
+ 5 Licitación                                                           706                0               1       705
+ 6 Contratos entre Entidades Públicas o sus subsidiarias                565               10             565         0
+ 7 Comunicación Social – Contratación Directa                           476                2             476         0
+ 8 Licitación de Seguros                                                468                0               0       468
+ 9 Repuestos o Accesorios                                               298                5             298         0
+10 Lista corta                                                          201              201               0         0
+11 Obra artística, científica o literaria                               183               37             183         0
+12 Concurso publico                                                     121              121               0         0
+13 Asesoría y Patrocinio Jurídico                                        27                0              27         0
+14 Contratación Directa por Terminación Unilateral                       11                0              11         0
+15 Transporte de correo interno o internacional                           7                0               7         0
+16 Comunicación Social – Proceso de Selección                             3                0               3         0
+17 Asesoría y Patrocinio Jurídico – Cons. puntuales y específicas         1                0               1         0
+18 Contrataciones con empresas públicas internacionales                   1                0               1         0
+
+COBERTURA AMPLIADA:
+# A tibble: 4 × 5
+  metodo    registros presupuesto_disponible oferentes_disponibles textos_disponibles
+  <fct>         <int>                  <int>                 <int>              <int>
+1 direct         3401                   3401                  3401               3401
+2 limited         204                    204                   204                204
+3 open          12725                   2101                 12479              12725
+4 selective      1823                   1823                  1823               1823

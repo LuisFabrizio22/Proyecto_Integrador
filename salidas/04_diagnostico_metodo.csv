@@ -1,0 +1,8 @@
+metodo,es_catalogo,registros,falta_presupuesto_pct,falta_oferentes_pct,falta_licitacion_pct,falta_adjudicacion_pct
+direct,FALSE,5503,0,0,27.803016536434672,100
+direct,TRUE,40218,0,100,100,2.8619026306628874
+limited,FALSE,309,0,0,98.05825242718447,100
+open,FALSE,24091,76.09895811713918,1.2162218255780166,78.5480054792246,100
+selective,FALSE,2836,0,0,0,100
+selective,TRUE,113457,8.813911878509039e-4,100,100,8.813911878509039e-4
+selective,NA,1,0,100,100,0

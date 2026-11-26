@@ -1,0 +1,177 @@
+=============================================
+PROYECTO INTEGRADOR - SERCOP 2025
+FASE 3: PREPARACION DE DATOS
+=============================================
+
+COBERTURA ECONOMICA RECUPERADA:
+# A tibble: 1 × 4
+  procedimientos con_monto_reportado con_proveedores con_diferencia_pct
+           <int>               <int>           <int>              <int>
+1           7529                7027            7027               7027
+
+FLUJO DE PREPARACION:
+# A tibble: 2 × 2
+  etapa                                       registros
+  <chr>                                           <int>
+1 Procedimientos candidatos                        7529
+2 Procedimientos con cuatro variables validas      3796
+
+DIMENSIONES DE LA BASE DE MODELADO:
+[1] 3796   30
+
+MODALIDADES INCLUIDAS:
+# A tibble: 4 × 3
+  modalidad                 n proporcion
+  <fct>                 <int>      <dbl>
+1 Menor Cuantía          1817      0.479
+2 Cotización              806      0.212
+3 Licitación              705      0.186
+4 Licitación de Seguros   468      0.123
+
+RESUMEN ESTADISTICO:
+── Data Summary ────────────────────────
+                           Values       
+Name                       base_numerica
+Number of rows             3796         
+Number of columns          4            
+_______________________                 
+Column type frequency:                  
+  numeric                  4            
+________________________                
+Group variables            None         
+
+── Variable type: numeric ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  skim_variable   n_missing complete_rate      mean        sd   p0    p25    p50     p75      p100 hist 
+1 presupuesto             0             1 269726.   858516.   2000 29325. 69831. 210886. 20084964. ▇▁▁▁▁
+2 oferentes               0             1     10.3      30.6     1     1      3       7       527  ▇▁▁▁▁
+3 dias_licitacion         0             1     15.8       9.04    3    11     14      18       122  ▇▁▁▁▁
+4 dias_consultas          0             1      6.99      8.45    1     4      6       7       111  ▇▁▁▁▁
+
+CALIDAD DE VARIABLES:
+# A tibble: 4 × 3
+  variable        n_miss pct_miss
+  <chr>            <int>    <num>
+1 presupuesto          0        0
+2 oferentes            0        0
+3 dias_licitacion      0        0
+4 dias_consultas       0        0
+
+ATIPICOS:
+# A tibble: 4 × 6
+  variable         inferior superior n_atipicos_tukey pct_atipicos_tukey n_atipicos_mad
+  <chr>               <dbl>    <dbl>            <int>              <dbl>          <int>
+1 presupuesto     -243016.  483227.               400              10.5             652
+2 oferentes            -8       16                416              11.0             527
+3 dias_licitacion       0.5     28.5              165               4.35            155
+4 dias_consultas       -0.5     11.5              285               7.51            285
+
+PARTICION:
+# A tibble: 2 × 3
+  conjunto      registros proporcion
+  <chr>             <int>      <dbl>
+1 Entrenamiento      2845      0.749
+2 Prueba              951      0.251
+
+DISTRIBUCION POR MODALIDAD:
+# A tibble: 8 × 4
+  conjunto      modalidad                 n proporcion
+  <chr>         <fct>                 <int>      <dbl>
+1 entrenamiento Cotización              604      0.212
+2 entrenamiento Licitación              528      0.186
+3 entrenamiento Licitación de Seguros   351      0.123
+4 entrenamiento Menor Cuantía          1362      0.479
+5 prueba        Cotización              202      0.212
+6 prueba        Licitación              177      0.186
+7 prueba        Licitación de Seguros   117      0.123
+8 prueba        Menor Cuantía           455      0.478
+
+RECETA:
+
+RECETA PREPARADA:
+
+VARIABLES FINALES DEL AGRUPAMIENTO:
+[1] "presupuesto"     "oferentes"       "dias_licitacion" "dias_consultas" 
+
+DIMENSIONES X_ENTREN:
+[1] 2845    4
+
+DIMENSIONES X_PRUEBA:
+[1] 951   4
+
+CONTROL DE NORMALIZACION:
+# A tibble: 4 × 5
+  variable        media_entrenamiento sd_entrenamiento media_prueba sd_prueba
+  <chr>                         <dbl>            <dbl>        <dbl>     <dbl>
+1 presupuesto               -4.69e-17                1      -0.0152     0.976
+2 oferentes                 -8.00e-19                1       0.0716     1.10 
+3 dias_licitacion            6.20e-18                1      -0.0403     0.963
+4 dias_consultas             1.99e-16                1      -0.0691     0.987
+
+CORRELACIONES ORIGINALES:
+                presupuesto oferentes dias_licitacion dias_consultas
+presupuesto            1.00      0.24            0.47           0.21
+oferentes              0.24      1.00           -0.03          -0.03
+dias_licitacion        0.47     -0.03            1.00           0.70
+dias_consultas         0.21     -0.03            0.70           1.00
+
+CORRELACIONES PROCESADAS:
+                presupuesto oferentes dias_licitacion dias_consultas
+presupuesto            1.00      0.24            0.47           0.21
+oferentes              0.24      1.00           -0.03          -0.03
+dias_licitacion        0.47     -0.03            1.00           0.70
+dias_consultas         0.21     -0.03            0.70           1.00
+
+VARIANZA EXPLICADA PCA:
+# A tibble: 4 × 3
+  componente varianza_pct acumulada
+       <int>        <dbl>     <dbl>
+1          1        47.7       47.7
+2          2        28.8       76.5
+3          3        19.9       96.4
+4          4         3.61     100  
+
+CARGAS DE COMPONENTES:
+         variable         PC1         PC2         PC3         PC4
+1     presupuesto -0.32869647  0.61145667 -0.66476774  0.27597686
+2       oferentes  0.04867903  0.75161875  0.65736604 -0.02386408
+3 dias_licitacion -0.69645283 -0.01033684  0.03737965 -0.71655381
+4  dias_consultas -0.63603651 -0.24715005  0.35292563  0.64017023
+
+TEXTOS DISPONIBLES:
+# A tibble: 1 × 2
+  documentos textos_distintos
+       <int>            <int>
+1       3796             3739
+
+INFORMACION DE SESION:
+R version 4.6.1 (2026-06-24 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=Spanish_Ecuador.utf8  LC_CTYPE=Spanish_Ecuador.utf8    LC_MONETARY=Spanish_Ecuador.utf8 LC_NUMERIC=C                     LC_TIME=Spanish_Ecuador.utf8    
+
+time zone: America/Bogota
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] lubridate_1.9.5     forcats_1.0.1       stringr_1.6.0       purrr_1.2.2         readr_2.2.0         tidyr_1.3.2         tibble_3.3.1        ggplot2_4.0.4       tidyverse_2.0.0    
+[10] corrplot_0.95       patchwork_1.3.2     naniar_1.1.0        skimr_2.2.2         recipes_1.4.0       dplyr_1.2.1         rsample_1.3.2       data.table_1.18.6.1
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.2.1    timeDate_4052.112   farver_2.1.2        S7_1.0.0            fastmap_1.2.0       digest_0.6.39       rpart_4.1.27        timechange_0.4.0    lifecycle_1.0.5    
+[10] factoextra_2.2.0    cluster_2.1.8.2     survival_3.8-6      magrittr_2.0.5      kernlab_0.9-33      compiler_4.6.1      rlang_1.3.0         tools_4.6.1         utf8_1.2.6         
+[19] knitr_1.52          labeling_0.4.3      bit_4.6.0           mclust_6.1.4        repr_1.1.7          RColorBrewer_1.1-3  withr_3.0.3         nnet_7.3-20         grid_4.6.1         
+[28] stats4_4.6.1        sparsevctrs_0.4.0   future_1.82.0       globals_0.20.0      scales_1.4.0        fpc_2.2-15          MASS_7.3-65         prabclus_2.3-5      cli_3.6.6          
+[37] crayon_1.5.3        ragg_1.5.2          generics_0.1.4      otel_0.3.0          rstudioapi_0.19.0   future.apply_1.21.0 robustbase_0.99-7   tzdb_0.5.0          modeltools_0.2-25  
+[46] splines_4.6.1       parallel_4.6.1      base64enc_0.1-6     vctrs_0.7.3         hardhat_1.4.3       Matrix_1.7-5        jsonlite_2.0.0      hms_1.1.4           bit64_4.8.6        
+[55] visdat_0.6.1        ggrepel_0.9.8       listenv_1.1.0       systemfonts_1.3.4   diptest_0.77-2      gower_1.0.2         glue_1.8.1          parallelly_1.50.0   DEoptimR_1.2-2     
+[64] codetools_0.2-20    stringi_1.8.9       gtable_0.3.6        furrr_0.4.0         pillar_1.11.1       htmltools_0.5.9     ipred_0.9-16        lava_1.11           R6_2.6.1           
+[73] textshaping_1.1.0   vroom_1.7.1         evaluate_1.0.5      lattice_0.22-9      class_7.3-23        Rcpp_1.1.2          flexmix_2.3-21      prodlim_2026.03.11  xfun_0.62          
+[82] pkgconfig_2.0.3    

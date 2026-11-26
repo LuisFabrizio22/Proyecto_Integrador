@@ -1,0 +1,225 @@
+=============================================
+PROYECTO INTEGRADOR - SERCOP 2025
+INTEGRACION DE CONGLOMERADOS Y TOPICOS
+=============================================
+
+RESUMEN DE INTEGRACION:
+# A tibble: 1 × 6
+  procedimientos conglomerados topicos con_topico sin_topico cobertura_pct
+           <int>         <int>   <int>      <int>      <int>         <dbl>
+1           3796             4      12       3795          1         100.0
+
+NOMBRES DE CONGLOMERADOS:
+# A tibble: 4 × 2
+  grupo nombre_grupo                             
+  <chr> <chr>                                    
+1 1     Obras con alta participacion             
+2 2     Contrataciones de alto presupuesto       
+3 3     Menor presupuesto y baja participacion   
+4 4     Participacion minima y plazos prolongados
+
+NOMBRES DE TOPICOS:
+# A tibble: 12 × 3
+   topico nombre_topico                                nombre_corto               
+    <int> <chr>                                        <chr>                      
+ 1      1 Construccion e infraestructura rural         Infraestructura rural      
+ 2      2 Mantenimiento de edificios e instalaciones   Edificios e instalaciones  
+ 3      3 Obras sanitarias e infraestructura amazonica Obras sanitarias           
+ 4      4 Infraestructura vial y adoquinado            Infraestructura vial       
+ 5      5 Seguros de bienes, maquinaria y equipos      Seguros                    
+ 6      6 Agua potable y alcantarillado                Agua y alcantarillado      
+ 7      7 Mantenimiento vehicular y parque automotor   Mantenimiento vehicular    
+ 8      8 Bomberos, salud y mantenimiento urbano       Bomberos y salud           
+ 9      9 Eventos culturales y desarrollo social       Eventos culturales         
+10     10 Pasajes aereos y servicios administrativos   Pasajes y administracion   
+11     11 Mantenimiento de infraestructura educativa   Infraestructura educativa  
+12     12 Infraestructura comunitaria y deportiva      Infraestructura comunitaria
+
+TABLA DE CONTINGENCIA:
+            Topico
+Conglomerado   1   2   3   4   5   6   7   8   9  10  11  12
+           1  36 100  41  75   0  38  11  47  16   8  59 139
+           2  83 146  84 138  80 108 109  60  60  62  58  99
+           3 146  84 104 100 286 103 281  47 258 170  54 242
+           4   3  15   3   2   3   9 124   9  32  54   5   4
+
+PORCENTAJES DENTRO DE CADA CONGLOMERADO:
+            Topico
+Conglomerado     1     2     3     4     5     6     7     8     9    10    11    12
+           1  6.32 17.54  7.19 13.16  0.00  6.67  1.93  8.25  2.81  1.40 10.35 24.39
+           2  7.64 13.43  7.73 12.70  7.36  9.94 10.03  5.52  5.52  5.70  5.34  9.11
+           3  7.79  4.48  5.55  5.33 15.25  5.49 14.99  2.51 13.76  9.07  2.88 12.91
+           4  1.14  5.70  1.14  0.76  1.14  3.42 47.15  3.42 12.17 20.53  1.90  1.52
+
+ASOCIACION ESTADISTICA:
+# A tibble: 1 × 8
+  observaciones chi_cuadrado grados_libertad   p_valor v_cramer esperados_menores_5_pct esperado_minimo    ari
+          <int>        <dbl>           <dbl>     <dbl>    <dbl>                   <dbl>           <dbl>  <dbl>
+1          3795        1046.              33 1.92e-198    0.303                       0            11.3 0.0290
+
+RESIDUOS ESTANDARIZADOS DESTACADOS:
+# A tibble: 12 × 5
+   grupo topico residuo nombre_topico                              nombre_corto               
+   <chr>  <int>   <dbl> <chr>                                      <chr>                      
+ 1 4          7   16.2  Mantenimiento vehicular y parque automotor Mantenimiento vehicular    
+ 2 3          5   11.4  Seguros de bienes, maquinaria y equipos    Seguros                    
+ 3 3          2   -9.76 Mantenimiento de edificios e instalaciones Edificios e instalaciones  
+ 4 1         12    9.03 Infraestructura comunitaria y deportiva    Infraestructura comunitaria
+ 5 1          7   -8.93 Mantenimiento vehicular y parque automotor Mantenimiento vehicular    
+ 6 1          5   -8.50 Seguros de bienes, maquinaria y equipos    Seguros                    
+ 7 3          9    8.49 Eventos culturales y desarrollo social     Eventos culturales         
+ 8 4         10    8.04 Pasajes aereos y servicios administrativos Pasajes y administracion   
+ 9 1          2    7.62 Mantenimiento de edificios e instalaciones Edificios e instalaciones  
+10 1         11    7.04 Mantenimiento de infraestructura educativa Infraestructura educativa  
+11 3          4   -6.55 Infraestructura vial y adoquinado          Infraestructura vial       
+12 2          4    6.22 Infraestructura vial y adoquinado          Infraestructura vial       
+
+TOPICOS PRINCIPALES POR CONGLOMERADO:
+# A tibble: 12 × 5
+   grupo topico nombre_corto                    n porcentaje
+   <chr>  <int> <chr>                       <int>      <dbl>
+ 1 1         12 Infraestructura comunitaria   139       24.4
+ 2 1          2 Edificios e instalaciones     100       17.5
+ 3 1          4 Infraestructura vial           75       13.2
+ 4 2          2 Edificios e instalaciones     146       13.4
+ 5 2          4 Infraestructura vial          138       12.7
+ 6 2          7 Mantenimiento vehicular       109       10.0
+ 7 3          5 Seguros                       286       15.3
+ 8 3          7 Mantenimiento vehicular       281       15.0
+ 9 3          9 Eventos culturales            258       13.8
+10 4          7 Mantenimiento vehicular       124       47.1
+11 4         10 Pasajes y administracion       54       20.5
+12 4          9 Eventos culturales             32       12.2
+
+COMPOSICION GAMMA POR CONGLOMERADO:
+# A tibble: 48 × 5
+   grupo topico gamma_media nombre_topico                                nombre_corto               
+   <chr>  <int>       <dbl> <chr>                                        <chr>                      
+ 1 1          1      0.0663 Construccion e infraestructura rural         Infraestructura rural      
+ 2 1          2      0.150  Mantenimiento de edificios e instalaciones   Edificios e instalaciones  
+ 3 1          3      0.0880 Obras sanitarias e infraestructura amazonica Obras sanitarias           
+ 4 1          4      0.132  Infraestructura vial y adoquinado            Infraestructura vial       
+ 5 1          5      0.0140 Seguros de bienes, maquinaria y equipos      Seguros                    
+ 6 1          6      0.0641 Agua potable y alcantarillado                Agua y alcantarillado      
+ 7 1          7      0.0406 Mantenimiento vehicular y parque automotor   Mantenimiento vehicular    
+ 8 1          8      0.0876 Bomberos, salud y mantenimiento urbano       Bomberos y salud           
+ 9 1          9      0.0407 Eventos culturales y desarrollo social       Eventos culturales         
+10 1         10      0.0270 Pasajes aereos y servicios administrativos   Pasajes y administracion   
+11 1         11      0.105  Mantenimiento de infraestructura educativa   Infraestructura educativa  
+12 1         12      0.184  Infraestructura comunitaria y deportiva      Infraestructura comunitaria
+13 2          1      0.0843 Construccion e infraestructura rural         Infraestructura rural      
+14 2          2      0.118  Mantenimiento de edificios e instalaciones   Edificios e instalaciones  
+15 2          3      0.0878 Obras sanitarias e infraestructura amazonica Obras sanitarias           
+16 2          4      0.111  Infraestructura vial y adoquinado            Infraestructura vial       
+17 2          5      0.0704 Seguros de bienes, maquinaria y equipos      Seguros                    
+18 2          6      0.0978 Agua potable y alcantarillado                Agua y alcantarillado      
+19 2          7      0.0877 Mantenimiento vehicular y parque automotor   Mantenimiento vehicular    
+20 2          8      0.0714 Bomberos, salud y mantenimiento urbano       Bomberos y salud           
+21 2          9      0.0653 Eventos culturales y desarrollo social       Eventos culturales         
+22 2         10      0.0626 Pasajes aereos y servicios administrativos   Pasajes y administracion   
+23 2         11      0.0641 Mantenimiento de infraestructura educativa   Infraestructura educativa  
+24 2         12      0.0804 Infraestructura comunitaria y deportiva      Infraestructura comunitaria
+25 3          1      0.0817 Construccion e infraestructura rural         Infraestructura rural      
+26 3          2      0.0601 Mantenimiento de edificios e instalaciones   Edificios e instalaciones  
+27 3          3      0.0630 Obras sanitarias e infraestructura amazonica Obras sanitarias           
+28 3          4      0.0620 Infraestructura vial y adoquinado            Infraestructura vial       
+29 3          5      0.131  Seguros de bienes, maquinaria y equipos      Seguros                    
+30 3          6      0.0625 Agua potable y alcantarillado                Agua y alcantarillado      
+31 3          7      0.120  Mantenimiento vehicular y parque automotor   Mantenimiento vehicular    
+32 3          8      0.0517 Bomberos, salud y mantenimiento urbano       Bomberos y salud           
+33 3          9      0.117  Eventos culturales y desarrollo social       Eventos culturales         
+34 3         10      0.0902 Pasajes aereos y servicios administrativos   Pasajes y administracion   
+35 3         11      0.0495 Mantenimiento de infraestructura educativa   Infraestructura educativa  
+36 3         12      0.110  Infraestructura comunitaria y deportiva      Infraestructura comunitaria
+37 4          1      0.0385 Construccion e infraestructura rural         Infraestructura rural      
+38 4          2      0.0760 Mantenimiento de edificios e instalaciones   Edificios e instalaciones  
+39 4          3      0.0261 Obras sanitarias e infraestructura amazonica Obras sanitarias           
+40 4          4      0.0236 Infraestructura vial y adoquinado            Infraestructura vial       
+41 4          5      0.0245 Seguros de bienes, maquinaria y equipos      Seguros                    
+42 4          6      0.0503 Agua potable y alcantarillado                Agua y alcantarillado      
+43 4          7      0.340  Mantenimiento vehicular y parque automotor   Mantenimiento vehicular    
+44 4          8      0.0534 Bomberos, salud y mantenimiento urbano       Bomberos y salud           
+45 4          9      0.107  Eventos culturales y desarrollo social       Eventos culturales         
+46 4         10      0.189  Pasajes aereos y servicios administrativos   Pasajes y administracion   
+47 4         11      0.0459 Mantenimiento de infraestructura educativa   Infraestructura educativa  
+48 4         12      0.0263 Infraestructura comunitaria y deportiva      Infraestructura comunitaria
+
+PERFIL ECONOMICO DE LOS TOPICOS:
+# A tibble: 12 × 12
+   topico nombre_topico                                procedimientos presupuesto_mediano presupuesto_total oferentes_mediana un_oferente_pct licitacion_mediana consultas_mediana monto_reportado_mediano diferencia_pct_mediana cobertura_monto_pct
+    <int> <chr>                                                 <int>               <dbl>             <dbl>             <dbl>           <dbl>              <dbl>             <dbl>                   <dbl>                  <dbl>               <dbl>
+ 1      1 Construccion e infraestructura rural                    268              60886.         99792158.               4             11.2                  13                 6                  58791.                  0                    92.5
+ 2      2 Mantenimiento de edificios e instalaciones              345             127499.        131232851.               7             14.5                  15                 6                 124503.                  1.93                 89.9
+ 3      3 Obras sanitarias e infraestructura amazonica            232              99976.         82867327.               4.5           14.2                  13                 5                 102561.                  0                    95.7
+ 4      4 Infraestructura vial y adoquinado                       315             143403.        150316389.               6              7.62                 14                 6                 139700.                  0.297                92.7
+ 5      5 Seguros de bienes, maquinaria y equipos                 369              41915.         65626182.               2             32.5                  15                 5                  32158.                 15.5                  97.3
+ 6      6 Agua potable y alcantarillado                           258             119434.        135755193.               3             27.5                  15                 6                 108947.                  0.345                90.3
+ 7      7 Mantenimiento vehicular y parque automotor              525              57705          74110902.               1             68.2                  14                 6                  46945                   0.258                90.3
+ 8      8 Bomberos, salud y mantenimiento urbano                  163             126994          61137348.               6             16.6                  15                 6                 114000                   0.557                90.2
+ 9      9 Eventos culturales y desarrollo social                  366              45002.         43753617.               1             71.3                  12                 5                  39605.                  0.980                93.4
+10     10 Pasajes aereos y servicios administrativos              294              67750          43068778.               2             49.0                  14                 5                  51084.                  3.14                 93.2
+11     11 Mantenimiento de infraestructura educativa              176              92926.         52335954.               8.5            7.39                 14                 6                  91097.                  0                    89.2
+12     12 Infraestructura comunitaria y deportiva                 484              59622.         83847697.               6              6.40                 13                 5                  59628.                  0                    91.5
+
+PERFIL INTEGRADO DE CONGLOMERADOS:
+# A tibble: 4 × 16
+  grupo     n presupuesto_mediano presupuesto_medio presupuesto_total oferentes_mediana oferentes_media un_oferente_pct licitacion_mediana consultas_mediana monto_reportado_mediano diferencia_pct_mediana cobertura_monto_pct proveedores_mediana
+  <chr> <dbl>               <dbl>             <dbl>             <dbl>             <dbl>           <dbl>           <dbl>              <dbl>             <dbl>                   <dbl>                  <dbl>               <dbl>               <dbl>
+1 1       571              74238.           102040.         58264896.                24           49.5              0                   13                 6                  72654.                  0                    92.3                   1
+2 2      1087             385521.           782703.        850797700.                 3            4.90            17.7                 18                 6                 353701.                  3.00                 88.8                   1
+3 3      1875              38648.            53224.         99795763.                 2            2.88            38.0                 12                 5                  34759.                  0.510                94.0                   1
+4 4       263              28000             57114.         15021036.                 1            1.11            98.1                 27                23                  25000                   2.44                 94.3                   1
+  nombre_grupo                              principales_topicos                                                                                 
+  <chr>                                     <chr>                                                                                               
+1 Obras con alta participacion              Infraestructura comunitaria (24.4%); Edificios e instalaciones (17.5%); Infraestructura vial (13.2%)
+2 Contrataciones de alto presupuesto        Edificios e instalaciones (13.4%); Infraestructura vial (12.7%); Mantenimiento vehicular (10.0%)    
+3 Menor presupuesto y baja participacion    Seguros (15.3%); Mantenimiento vehicular (15.0%); Eventos culturales (13.8%)                        
+4 Participacion minima y plazos prolongados Mantenimiento vehicular (47.1%); Pasajes y administracion (20.5%); Eventos culturales (12.2%)       
+
+ASOCIACION DESCRIPTIVA EN PRUEBA:
+# A tibble: 1 × 2
+  observaciones v_cramer
+          <int>    <dbl>
+1           950    0.303
+
+LIMITACIONES METODOLOGICAS:
+1. Los conglomerados son perfiles exploratorios.
+2. La silueta es moderada-baja y Gap recomienda k=1.
+3. Los montos reportados no son adjudicaciones definitivas verificadas.
+4. La diferencia presupuestaria no implica necesariamente ahorro.
+5. La presencia de un solo oferente no demuestra irregularidades.
+6. Los topicos son interpretaciones de distribuciones de palabras.
+7. Los resultados corresponden a cuatro modalidades seleccionadas.
+8. La asociacion estadistica es exploratoria y no implica causalidad.
+
+INFORMACION DE SESION:
+R version 4.6.1 (2026-06-24 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=Spanish_Ecuador.utf8  LC_CTYPE=Spanish_Ecuador.utf8    LC_MONETARY=Spanish_Ecuador.utf8 LC_NUMERIC=C                     LC_TIME=Spanish_Ecuador.utf8    
+
+time zone: America/Bogota
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] SnowballC_0.7.1     topicmodels_0.2-17  stopwords_2.3       tidytext_0.4.3      mclust_6.1.4        fpc_2.2-15          factoextra_2.2.0    cluster_2.1.8.2     lubridate_1.9.5     forcats_1.0.1       stringr_1.6.0       purrr_1.2.2        
+[13] readr_2.2.0         tidyr_1.3.2         tibble_3.3.1        ggplot2_4.0.4       tidyverse_2.0.0     corrplot_0.95       patchwork_1.3.2     naniar_1.1.0        skimr_2.2.2         recipes_1.4.0       dplyr_1.2.1         rsample_1.3.2      
+[25] data.table_1.18.6.1
+
+loaded via a namespace (and not attached):
+ [1] rlang_1.3.0         magrittr_2.0.5      furrr_0.4.0         otel_0.3.0          compiler_4.6.1      flexmix_2.3-21      reshape2_1.4.5      systemfonts_1.3.4   vctrs_0.7.3         pkgconfig_2.0.3     crayon_1.5.3        fastmap_1.2.0      
+[13] backports_1.5.1     labeling_0.4.3      utf8_1.2.6          prodlim_2026.03.11  tzdb_0.5.0          visdat_0.6.1        ragg_1.5.2          bit_4.6.0           xfun_0.62           modeltools_0.2-25   jsonlite_2.0.0      broom_1.0.13       
+[25] parallel_4.6.1      prabclus_2.3-5      R6_2.6.1            stringi_1.8.9       RColorBrewer_1.1-3  parallelly_1.50.0   car_3.1-5           rpart_4.1.27        diptest_0.77-2      Rcpp_1.1.2          knitr_1.52          future.apply_1.21.0
+[37] base64enc_0.1-6     Matrix_1.7-5        splines_4.6.1       nnet_7.3-20         timechange_0.4.0    tidyselect_1.2.1    abind_1.4-8         rstudioapi_0.19.0   timeDate_4052.112   codetools_0.2-20    listenv_1.1.0       plyr_1.8.9         
+[49] lattice_0.22-9      withr_3.0.3         S7_1.0.0            evaluate_1.0.5      future_1.82.0       survival_3.8-6      xml2_1.6.0          kernlab_0.9-33      pillar_1.11.1       ggpubr_1.0.0        janeaustenr_1.0.0   carData_3.0-6      
+[61] stats4_4.6.1        NLP_0.3-3           generics_0.1.4      vroom_1.7.1         hms_1.1.4           scales_1.4.0        globals_0.20.0      slam_0.1-56         class_7.3-23        glue_1.8.1          tools_4.6.1         tm_0.7-20          
+[73] tokenizers_0.3.0    robustbase_0.99-7   gower_1.0.2         ggsignif_0.6.4      grid_4.6.1          ipred_0.9-16        repr_1.1.7          Formula_1.2-6       cli_3.6.6           textshaping_1.1.0   lava_1.11           gtable_0.3.6       
+[85] DEoptimR_1.2-2      rstatix_1.1.0       digest_0.6.39       ggrepel_0.9.8       farver_2.1.2        htmltools_0.5.9     lifecycle_1.0.5     hardhat_1.4.3       bit64_4.8.6         MASS_7.3-65         sparsevctrs_0.4.0  

@@ -1,0 +1,49 @@
+grupo,topico,residuo,nombre_topico,nombre_corto
+1,1,-0.7542876661332123,Construccion e infraestructura rural,Infraestructura rural
+2,1,0.8741310978889835,Construccion e infraestructura rural,Infraestructura rural
+3,1,1.722192304527208,Construccion e infraestructura rural,Infraestructura rural
+4,1,-3.885327874999718,Construccion e infraestructura rural,Infraestructura rural
+1,2,7.615167711466754,Mantenimiento de edificios e instalaciones,Edificios e instalaciones
+2,2,5.892968856468712,Mantenimiento de edificios e instalaciones,Edificios e instalaciones
+3,2,-9.764166055019755,Mantenimiento de edificios e instalaciones,Edificios e instalaciones
+4,2,-1.9808142155186577,Mantenimiento de edificios e instalaciones,Edificios e instalaciones
+1,3,1.1671631590331553,Obras sanitarias e infraestructura amazonica,Obras sanitarias
+2,3,2.6300440901555353,Obras sanitarias e infraestructura amazonica,Obras sanitarias
+3,3,-1.4398699216365536,Obras sanitarias e infraestructura amazonica,Obras sanitarias
+4,3,-3.4891431726750697,Obras sanitarias e infraestructura amazonica,Obras sanitarias
+1,4,4.559929231335381,Infraestructura vial y adoquinado,Infraestructura vial
+2,4,6.217727296104255,Infraestructura vial y adoquinado,Infraestructura vial
+3,4,-6.5471064685448,Infraestructura vial y adoquinado,Infraestructura vial
+4,4,-4.594181298834472,Infraestructura vial y adoquinado,Infraestructura vial
+1,5,-8.499589713169982,"Seguros de bienes, maquinaria y equipos",Seguros
+2,5,-3.113708154672689,"Seguros de bienes, maquinaria y equipos",Seguros
+3,5,11.362842726738192,"Seguros de bienes, maquinaria y equipos",Seguros
+4,5,-4.8696642174040035,"Seguros de bienes, maquinaria y equipos",Seguros
+1,6,-0.13555672875002328,Agua potable y alcantarillado,Agua y alcantarillado
+2,6,4.864303520448894,Agua potable y alcantarillado,Agua y alcantarillado
+3,6,-3.1563075917292935,Agua potable y alcantarillado,Agua y alcantarillado
+4,6,-2.2547962254339224,Agua potable y alcantarillado,Agua y alcantarillado
+1,7,-8.929676812439503,Mantenimiento vehicular y parque automotor,Mantenimiento vehicular
+2,7,-4.302969156174273,Mantenimiento vehicular y parque automotor,Mantenimiento vehicular
+3,7,2.0324547092226934,Mantenimiento vehicular y parque automotor,Mantenimiento vehicular
+4,7,16.22042841793728,Mantenimiento vehicular y parque automotor,Mantenimiento vehicular
+1,8,5.046315031539919,"Bomberos, salud y mantenimiento urbano",Bomberos y salud
+2,8,2.3575168813548553,"Bomberos, salud y mantenimiento urbano",Bomberos y salud
+3,8,-5.3700686355026646,"Bomberos, salud y mantenimiento urbano",Bomberos y salud
+4,8,-0.7238832072063851,"Bomberos, salud y mantenimiento urbano",Bomberos y salud
+1,9,-5.998566689771395,Eventos culturales y desarrollo social,Eventos culturales
+2,9,-5.453232776896595,Eventos culturales y desarrollo social,Eventos culturales
+3,9,8.487707653420372,Eventos culturales y desarrollo social,Eventos culturales
+4,9,1.4367579297150213,Eventos culturales y desarrollo social,Eventos culturales
+1,10,-6.14541614713546,Pasajes aereos y servicios administrativos,Pasajes y administracion
+2,10,-2.9830656856727735,Pasajes aereos y servicios administrativos,Pasajes y administracion
+3,10,3.0050417585640807,Pasajes aereos y servicios administrativos,Pasajes y administracion
+4,10,8.039440953846503,Pasajes aereos y servicios administrativos,Pasajes y administracion
+1,11,7.035885110988787,Mantenimiento de infraestructura educativa,Infraestructura educativa
+2,11,1.295622525484988,Mantenimiento de infraestructura educativa,Infraestructura educativa
+3,11,-5.0881178771265665,Mantenimiento de infraestructura educativa,Infraestructura educativa
+4,11,-2.1874415020447207,Mantenimiento de infraestructura educativa,Infraestructura educativa
+1,12,9.031400871751112,Infraestructura comunitaria y deportiva,Infraestructura comunitaria
+2,12,-4.266001617942799,Infraestructura comunitaria y deportiva,Infraestructura comunitaria
+3,12,0.27930598910186866,Infraestructura comunitaria y deportiva,Infraestructura comunitaria
+4,12,-5.6606655658560125,Infraestructura comunitaria y deportiva,Infraestructura comunitaria
