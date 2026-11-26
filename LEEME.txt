@@ -1,0 +1,138 @@
+UNIVERSIDAD CENTRAL DEL ECUADOR
+FACULTAD DE CIENCIAS
+MAESTRÍA EN ESTADÍSTICA
+MENCIÓN CIENCIA DE DATOS E INTELIGENCIA ARTIFICIAL
+
+PROYECTO INTEGRADOR – MINERÍA DE DATOS
+
+==================================================
+1. IDENTIFICACIÓN DEL PROYECTO
+==================================================
+
+Título: Caracterización de los procedimientos de contratación pública del Ecuador mediante técnicas de agrupamiento y minería de textos.
+
+Docente: Ing. Livino Armijos Toro, Ph.D.
+
+Grupo: COMPLETAR
+
+Integrantes:
+- Luis Suntaxi Carrera
+- Giancarlo Loaiza Aguilar
+
+
+Fecha: 26 de noviembre de 2026.
+
+Repositorio del proyecto:
+COMPLETAR ENLACE DEL REPOSITORIO
+
+==================================================
+2. OBJETIVO
+==================================================
+
+Caracterizar los procedimientos de contratación pública publicados durante 2025 mediante técnicas de agrupamiento y minería de textos, identificando perfiles presupuestarios, administrativos y de participación de oferentes.
+
+==================================================
+3. FUENTE DE DATOS
+==================================================
+
+Institución: Servicio Nacional de Contratación Pública (SERCOP).
+
+Portal:
+https://datosabiertos.compraspublicas.gob.ec/PLATAFORMA/datos-abiertos
+
+Estándar: Open Contracting Data Standard (OCDS).
+
+Licencia: Creative Commons Atribución 3.0 Ecuador.
+
+https://creativecommons.org/licenses/by/3.0/ec/
+
+Extracción original: 26 de noviembre de 2026.
+
+Los datos fueron transformados y analizados con fines académicos. Debido a su volumen, los archivos originales se obtienen mediante el script descargar_datos.R y las instrucciones de descarga.
+
+==================================================
+4. REQUISITOS DE SOFTWARE
+==================================================
+
+- R 4.6.1
+- RStudio
+- Quarto
+- Conexión a Internet para instalar paquetes y recuperar datos.
+
+Paquetes principales:
+
+data.table, tidyverse, lubridate, skimr, naniar, recipes, rsample, corrplot, cluster, factoextra, fpc, mclust, tidytext, stopwords, topicmodels, SnowballC, reshape2, patchwork, knitr y scales.
+
+==================================================
+5. ESTRUCTURA DEL PROYECTO
+==================================================
+
+ProyectoIntegrador.qmd
+ProyectoIntegrador.html
+Presentacion_SERCOP_2025.pdf
+referencias.bib
+apa.csl
+descargar_datos.R
+LEEME.txt
+
+R/       Scripts de análisis.
+data/    Datos originales y resultados intermedios.
+figuras/ Gráficos estadísticos.
+salidas/ Tablas y modelos almacenados.
+
+==================================================
+6. REPRODUCCIÓN DEL ANÁLISIS
+==================================================
+
+Abrir RStudio y establecer la carpeta principal del proyecto como directorio de trabajo.
+
+Ejecutar los scripts en el siguiente orden:
+
+source("descargar_datos.R")
+source("R/01_integracion.R")
+source("R/02_diagnostico.R")
+source("R/03_preparacion.R")
+source("R/04_agrupamiento.R")
+source("R/05_mineria_textos.R")
+source("R/06_integracion_resultados.R")
+
+Los modelos utilizan semillas fijas para favorecer la reproducibilidad.
+
+Finalmente, ejecutar:
+
+quarto::quarto_render("ProyectoIntegrador.qmd")
+
+Los ajustes estadísticos pueden requerir tiempo de procesamiento. Si se dispone de todos los resultados intermedios, se puede renderizar el informe sin reentrenar los modelos.
+
+==================================================
+7. RESULTADOS PRINCIPALES
+==================================================
+
+- Registros iniciales: 186.415.
+- Procedimientos analizados: 3.796.
+- Método seleccionado: K-means.
+- Número de conglomerados: 4.
+- Silueta en prueba: 0,343.
+- Estabilidad Jaccard promedio: 0,973.
+- Tópicos LDA: 12.
+- V de Cramér: 0,303.
+
+Los conglomerados representan perfiles exploratorios y no grupos naturales claramente separados.
+
+==================================================
+8. ÉTICA Y PROTECCIÓN DE DATOS
+==================================================
+
+La investigación tiene fines académicos. Los resultados no constituyen evidencia de irregularidades contractuales.
+
+Se deben evitar la exposición innecesaria de datos personales, la reidentificación de proveedores y las decisiones automatizadas que puedan afectar sus derechos.
+
+Los resultados individuales y modelos que contengan información identificable requieren revisión previa a su divulgación.
+
+==================================================
+9. USO DE INTELIGENCIA ARTIFICIAL
+==================================================
+
+Se utilizó ChatGPT como herramienta de apoyo para la planificación, adaptación de código, diagnóstico de errores, interpretación preliminar y redacción.
+
+Los resultados fueron obtenidos mediante la ejecución de los scripts en RStudio con datos reales del SERCOP.

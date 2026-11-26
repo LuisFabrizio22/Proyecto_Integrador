@@ -1,0 +1,435 @@
+---
+title: "Caracterización de los procedimientos de contratación pública del Ecuador mediante técnicas de agrupamiento y minería de textos"
+subtitle: "Análisis de la competencia y el comportamiento presupuestario: SERCOP 2025 · Universidad Central del Ecuador · Maestría en Estadística, mención Ciencia de Datos e Inteligencia Artificial"
+author: ["Luis Suntaxi Carrera", "Giancarlo Loaiza Aguilar"]
+date: "2026-11-26"
+lang: es
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-title: "Contenido"
+    number-sections: true
+    code-fold: true
+    embed-resources: true
+    theme: cosmo
+execute:
+  warning: false
+  message: false
+bibliography: referencias.bib
+csl: apa.csl
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(knitr)
+set.seed(2026)
+leer <- function(n) readr::read_csv(file.path('salidas',n),show_col_types=FALSE)
+fmt <- function(x,d=0) formatC(x,format='f',digits=d,big.mark='.',decimal.mark=',')
+tabla <- function(x,titulo=NULL,d=3) knitr::kable(x,caption=titulo,digits=d)
+figura <- function(n) knitr::include_graphics(file.path('figuras',n))
+integrada <- readRDS('data/sercop_integrado.rds')
+candidatos <- readRDS('data/sercop_candidatos.rds')
+base <- readRDS('data/sercop_resultados_finales.rds')
+X <- readRDS('data/X_entren.rds')
+Xt <- readRDS('data/X_prueba.rds')
+km <- readRDS('salidas/04_modelo_kmeans.rds')
+ward <- readRDS('salidas/04_modelo_ward.rds')
+lda <- readRDS('salidas/05_modelo_lda.rds')
+indices <- leer('04_indices_agrupamiento.csv')
+est <- leer('04_estabilidad.csv')
+ev <- leer('04_evaluacion_prueba.csv')
+perfil <- leer('04_perfil_grupos.csv')
+perp <- leer('05_perplejidad.csv')
+cob <- leer('05_cobertura_topicos.csv')
+asoc <- leer('06_asociacion_estadistica.csv')
+ap <- leer('06_asociacion_prueba.csv')
+pt <- leer('06_perfil_economico_topicos.csv')
+nombres <- leer('06_nombres_topicos.csv')
+ng <- n_distinct(base$grupo)
+nt <- n_distinct(base$topico,na.rm=TRUE)
+sil <- ev$silueta_prueba[ev$metodo=='K-means']
+jac <- mean(est$jaccard[est$metodo=='K-means'])
+freq <- leer('05_frecuencias.csv')
+vars <- c('presupuesto','oferentes','dias_licitacion','dias_consultas')
+```
+
+**Facultad de Ciencias · Módulo Minería de Datos (MECDIA0201)**  
+**Docente:** Ing. Livino Armijos Toro, Ph.D.  
+**Grupo:** COMPLETAR NÚMERO
+
+# Resumen {.unnumbered}
+
+La contratación pública genera información cuya exploración permite identificar patrones económicos, administrativos y temáticos útiles para la planificación institucional. Esta investigación caracteriza procedimientos publicados durante 2025 mediante datos abiertos del Servicio Nacional de Contratación Pública (SERCOP), siguiendo CRISP-DM. De `r fmt(nrow(integrada))` registros integrados se seleccionaron `r fmt(nrow(base))` procedimientos con presupuesto, número de oferentes y plazos de licitación y consultas completos. Se compararon K-means y Ward mediante índices internos, estabilidad Bootstrap y evaluación en prueba. K-means con `r ng` grupos obtuvo silueta de `r fmt(sil,3)` en prueba y Jaccard medio de `r fmt(jac,3)`. La minería textual incluyó tokenización, TF-IDF, bigramas y LDA, que identificó `r nt` tópicos. La integración obtuvo V de Cramér de `r fmt(asoc$v_cramer,3)`, mostrando asociación descriptiva entre perfiles cuantitativos y temáticos. Destacan obras con alta participación y servicios con participación mínima. Los resultados orientan investigaciones sobre condiciones de mercado y planificación, sin demostrar causalidad ni irregularidades. La separación limitada de los conglomerados y el sesgo de selección restringen la generalización.
+
+**Palabras clave:** contratación pública, agrupamiento, minería de textos, K-means, LDA.
+
+# Comprensión del problema
+
+Las unidades de contratación y planificación de las instituciones públicas necesitan identificar patrones comparables de presupuesto, plazos y participación de oferentes. La exploración conjunta de datos estructurados y objetos de contratación permite reconocer segmentos que merecen revisión contextualizada.
+
+**Pregunta:** ¿Qué perfiles de contratación pueden identificarse y cómo se relacionan con los tópicos de los objetos de contratación publicados durante 2025?
+
+**Objetivo general:** caracterizar los procedimientos mediante agrupamiento y minería de textos para apoyar el análisis presupuestario y de participación.
+
+**Objetivos específicos:** integrar y auditar los datos; preparar variables cuantitativas; comparar K-means y Ward; extraer términos y tópicos; integrar ambas dimensiones; formular recomendaciones.
+
+**Beneficiarios:** unidades de contratación, planificación y administración de instituciones ecuatorianas. La decisión apoyada consiste en priorizar revisiones de condiciones de participación y planificar compras comparables, no sancionar proveedores.
+
+**Criterios de éxito:** al menos 1.000 registros y 500 documentos, dos métodos de agrupamiento, silueta deseable de 0,50, estabilidad Jaccard superior a 0,75 y tópicos interpretables vinculados a los grupos. La silueta es una meta, no una razón para manipular la muestra.
+
+Se sigue CRISP-DM: comprensión del problema y datos, preparación, modelado, evaluación y despliegue [@chapman2000].
+
+# Comprensión de los datos
+
+## Fuente e integración
+
+Se emplean datos abiertos SERCOP bajo OCDS 1.1 [@sercop2025; @ocds], extracción 2025 descargada el 26 de noviembre de 2026. El año se determina por fecha de publicación y no por el nombre del archivo. La unidad es el procedimiento identificado por OCID. Los archivos principales son `tender_2025.csv`, `awards_2025.csv`, `suppliers_2025.csv` y `releases_2025.csv`. Se agregaron las adjudicaciones y proveedores antes de unir las tablas para evitar multiplicación de filas; se verificaron claves únicas y correspondencia de publicaciones.
+
+```{r}
+tabla(tibble(Etapa=c('Registros integrados','Publicados en 2025','Candidatos no catálogo con presupuesto válido y texto','Base completa para modelado'),Registros=c(nrow(integrada),sum(integrada$anio==2025,na.rm=TRUE),nrow(candidatos),nrow(base))), 'Flujo de selección')
+```
+
+## Diccionario de variables
+
+```{r}
+tabla(tribble(~Variable,~Descripción,~Uso,
+'ocid','Identificador OCDS','Vinculación',
+'objeto','Descripción libre','Texto',
+'presupuesto','Presupuesto referencial USD','Agrupamiento',
+'oferentes','Número de oferentes','Agrupamiento',
+'dias_licitacion','Duración de licitación en días','Agrupamiento',
+'dias_consultas','Duración de consultas en días','Agrupamiento',
+'monto_reportado','Monto registrado en adjudicaciones','Perfilado',
+'diferencia_pct','Diferencia relativa presupuesto-monto','Perfilado',
+'num_proveedores_reportados','Número de proveedores registrados','Perfilado',
+'modalidad','Modalidad de contratación','Perfilado',
+'categoria','Bienes, servicios u obras','Perfilado',
+'metodo','Método de contratación','Perfilado',
+'estado','Estado del procedimiento','Perfilado',
+'mes','Mes de publicación','Perfilado'))
+```
+
+## Calidad y exploración
+
+La falta de oferentes y plazos en catálogo y otras modalidades es estructural. Se restringió la comparación a casos con variables completas, sin imputar plazos inexistentes. Los registros de adjudicación con estado no informado se recuperaron como montos reportados, sin atribuirles condición definitiva. Se exigieron montos positivos en USD e identificadores válidos para las agregaciones.
+
+```{r}
+tabla(candidatos |> summarise(across(all_of(vars),~sum(is.na(.)))) |> pivot_longer(everything(),names_to='Variable',values_to='Faltantes'),'Faltantes en candidatos')
+tabla(base |> count(modalidad,sort=TRUE) |> mutate(porcentaje=100*n/sum(n)), 'Modalidades de la base final')
+```
+
+```{r}
+#| fig-cap: "Valores faltantes"
+figura('04_faltantes.png')
+```
+
+```{r}
+tabla(base |> select(all_of(vars)) |> pivot_longer(everything(),names_to='Variable',values_to='Valor') |> group_by(Variable) |> summarise(Mínimo=min(Valor),Q1=quantile(Valor,.25),Mediana=median(Valor),Media=mean(Valor),Q3=quantile(Valor,.75),Máximo=max(Valor),DE=sd(Valor),.groups='drop'),'Estadísticos descriptivos')
+```
+
+Presupuesto y oferentes son asimétricos; se priorizan medianas para interpretar perfiles.
+
+```{r}
+#| fig-cap: "Distribuciones de las variables de modelado"
+figura('03_distribuciones.png')
+```
+
+```{r}
+#| fig-cap: "Correlaciones entre variables"
+figura('03_correlaciones.png')
+```
+
+## Corpus
+
+```{r}
+tabla(base |> summarise(Documentos=n(),Textos_distintos=n_distinct(objeto),Mediana_caracteres=median(nchar(objeto)),Media_caracteres=mean(nchar(objeto))))
+```
+
+Los objetos son textos administrativos breves que describen obras, mantenimiento, seguros y otros servicios.
+
+# Preparación de los datos
+
+Se conservaron valores extremos válidos detectados por Tukey y MAD: pueden corresponder a procedimientos legítimos. La transformación logarítmica reduce asimetría, sin truncar montos reales.
+
+```{r}
+tabla(leer('03_atipicos.csv'),'Diagnóstico de atípicos')
+```
+
+La partición estratificada por modalidad con semilla 2026 separó `r fmt(nrow(X))` observaciones de entrenamiento y `r fmt(nrow(Xt))` de prueba. La receta se ajustó únicamente en entrenamiento. Se conservaron cuatro variables tras el control de varianza y correlación.
+
+```{r}
+#| eval: false
+receta <- recipes::recipe(~ .,data=entren_modelo) |>
+  recipes::update_role(ocid,new_role='id') |>
+  recipes::step_log(recipes::all_numeric_predictors(),offset=1) |>
+  recipes::step_zv(recipes::all_numeric_predictors()) |>
+  recipes::step_corr(recipes::all_numeric_predictors(),threshold=.90) |>
+  recipes::step_normalize(recipes::all_numeric_predictors())
+receta_prep <- recipes::prep(receta,training=entren_modelo,retain=TRUE)
+```
+
+```{r}
+#| fig-cap: "Variables transformadas y normalizadas"
+figura('03_boxplot_normalizado.png')
+```
+
+PCA se utilizó exclusivamente para visualizar; no reemplazó las variables de ajuste.
+
+```{r}
+pca <- readRDS('salidas/pca.rds')
+tabla(tibble(CP=seq_along(pca$sdev),Varianza=100*pca$sdev^2/sum(pca$sdev^2)) |> mutate(Acumulada=cumsum(Varianza)))
+```
+
+El texto se convirtió a minúsculas, eliminando URL, correos electrónicos, números y símbolos. Se tokenizó y se retiraron palabras vacías en español y expresiones administrativas genéricas. Para LDA se agruparon textos idénticos después de la limpieza y se separaron aproximadamente 80/20. El vocabulario se estimó en entrenamiento, reteniendo términos de al menos cinco documentos y hasta el 50% de los documentos. Se excluyeron documentos sin términos retenidos de la matriz.
+
+# Modelado
+
+## Agrupamiento
+
+K-means minimiza dispersión cuadrática intragrupo [@macqueen1967]. Ward fusiona grupos minimizando el incremento de dispersión [@ward1963]. Se compararon soluciones de 2 a 10 grupos, distancia euclidiana, K-means con 50 inicializaciones y Ward.D2. Se consideró silueta, Gap, codo y un tamaño mínimo de grupo de 5% del entrenamiento.
+
+```{r}
+#| eval: false
+set.seed(2026)
+modelos <- lapply(2:10,function(k) stats::kmeans(X,centers=k,nstart=50,iter.max=100))
+D <- dist(X)
+hc <- hclust(D,method='ward.D2')
+```
+
+```{r}
+#| fig-cap: "Método del codo"
+figura('04_codo.png')
+```
+
+```{r}
+#| fig-cap: "Comparación de siluetas"
+figura('04_comparacion_silueta.png')
+```
+
+```{r}
+#| fig-cap: "Estadístico Gap"
+figura('04_gap.png')
+```
+
+Gap recomendó un único grupo bajo la regla aplicada [@tibshirani2001]. Se mantuvieron cuatro perfiles K-means para exploración, por máxima silueta y tamaño mínimo admisible, sin afirmar que existan cuatro grupos naturales.
+
+```{r}
+#| fig-cap: "Dendrograma Ward"
+figura('04_dendrograma_ward.png')
+```
+
+## Minería de textos
+
+```{r}
+tabla(head(freq,15),'Frecuencias de palabras')
+zipf <- lm(log10(frec_rel)~log10(rango),data=filter(freq,rango>=10,rango<=1000))
+```
+
+La pendiente rango-frecuencia fue `r fmt(coef(zipf)[2],3)`, cercana a -1, compatible descriptivamente con Zipf.
+
+```{r}
+#| fig-cap: "Distribución rango-frecuencia"
+figura('05_zipf.png')
+```
+
+TF-IDF considera cada grupo como documento agregado y destaca palabras distintivas [@silge2017]. Los bigramas recuperan pares consecutivos sin palabras vacías. Los términos sugieren obras y canalización en G1, seguros y equipos en G2 y G3, y movilidad y mantenimiento en G4.
+
+```{r}
+#| fig-cap: "TF-IDF por conglomerado"
+figura('05_tfidf_grupos.png')
+```
+
+```{r}
+#| fig-cap: "Bigramas por conglomerado"
+figura('05_bigramas.png')
+```
+
+LDA modela documentos como mezclas de tópicos y tópicos como distribuciones de palabras [@blei2003]. Se ajustaron modelos VEM sobre frecuencias, no TF-IDF, con 3, 6, 9, 12 y 15 tópicos; se eligió la menor perplejidad en validación y se reajustó sobre textos únicos disponibles con el vocabulario fijado.
+
+```{r}
+#| eval: false
+modelo <- topicmodels::LDA(dtm_entren,k=k,method='VEM',control=list(seed=2026))
+topicmodels::perplexity(modelo,newdata=dtm_validacion)
+```
+
+```{r}
+tabla(perp,'Perplejidad en validación')
+```
+
+```{r}
+#| fig-cap: "Selección de tópicos"
+figura('05_perplejidad.png')
+```
+
+```{r}
+#| fig-cap: "Términos representativos por tópico"
+figura('05_topicos_lda.png')
+```
+
+```{r}
+tabla(nombres |> select(topico,nombre_topico),'Etiquetas interpretativas')
+```
+
+# Evaluación
+
+## Validación y estabilidad
+
+La silueta mide cohesión y separación [@rousseeuw1987]. El remuestreo Bootstrap de 100 repeticiones evalúa la estabilidad de grupos [@hennig2007]. La prueba se asignó a centroides estimados en entrenamiento; para Ward se trata de una aproximación.
+
+```{r}
+tabla(indices,'Comparación de índices internos',4)
+tabla(est,'Estabilidad Jaccard',3)
+tabla(ev,'Evaluación independiente del agrupamiento',4)
+```
+
+K-means logró silueta de `r fmt(sil,3)` en prueba y Jaccard promedio de `r fmt(jac,3)`. La consistencia en prueba y el remuestreo justifican su uso descriptivo; la separación es limitada y Gap no respalda grupos naturales múltiples.
+
+```{r}
+#| fig-cap: "Estabilidad Bootstrap"
+figura('04_estabilidad.png')
+```
+
+```{r}
+#| fig-cap: "Silueta del modelo seleccionado"
+figura('04_silueta_final.png')
+```
+
+```{r}
+#| fig-cap: "Proyección PCA de los conglomerados"
+figura('04_pca_grupos.png')
+```
+
+## Perfilado
+
+```{r}
+tabla(perfil |> select(grupo,n,presupuesto_mediano,oferentes_mediana,un_oferente_pct,licitacion_mediana,consultas_mediana),'Perfil de conglomerados')
+```
+
+G1 corresponde principalmente a obras de alta participación; G2 concentra contratos de alto presupuesto; G3 reúne procedimientos de menor presupuesto y baja participación; G4 presenta participación mínima y plazos prolongados. Las etiquetas son descriptivas y relativas a la muestra.
+
+```{r}
+#| fig-cap: "Centroides estandarizados"
+figura('04_centroides.png')
+```
+
+```{r}
+#| fig-cap: "Modalidades por grupo"
+figura('04_modalidades_grupo.png')
+```
+
+```{r}
+#| fig-cap: "Categorías por grupo"
+figura('04_categorias_grupo.png')
+```
+
+## Evaluación temática e integración
+
+El modelo asignó tópico dominante a `r fmt(cob$con_topico)` de `r fmt(cob$documentos)` procedimientos, cobertura de `r fmt(100*cob$con_topico/cob$documentos,2)`%. Gamma dominante promedio: `r fmt(cob$gamma_dominante_media,3)`. La cobertura no equivale a exactitud supervisada.
+
+```{r}
+#| fig-cap: "Distribución de tópicos dominantes"
+figura('05_distribucion_topicos.png')
+```
+
+La integración por OCID produjo la siguiente tabla de contingencia.
+
+```{r}
+tabla(table(Grupo=base$grupo,Topico=base$topico),'Conglomerados y tópicos dominantes')
+tabla(asoc,'Medidas de asociación',4)
+```
+
+Chi-cuadrado = `r fmt(asoc$chi_cuadrado,2)`, gl = `r asoc$grados_libertad`, p nominal = `r format(asoc$p_valor,scientific=TRUE,digits=3)`. V de Cramér = `r fmt(asoc$v_cramer,3)`; ARI = `r fmt(asoc$ari,3)`. Los grupos y tópicos se relacionan, pero no son particiones equivalentes. En el subconjunto de prueba del agrupamiento, V = `r fmt(ap$v_cramer,3)`; no es validación independiente del LDA, que fue reajustado con el corpus completo. La repetición textual y el uso de datos compartidos limitan la interpretación inferencial.
+
+```{r}
+#| fig-cap: "Distribución temática dentro de cada conglomerado"
+figura('06_mapa_calor_topicos_grupos.png')
+```
+
+```{r}
+#| fig-cap: "Residuos estandarizados"
+figura('06_residuos_grupos_topicos.png')
+```
+
+```{r}
+tabla(leer('06_top3_topicos_por_grupo.csv') |> select(grupo,nombre_corto,n,porcentaje),'Tópicos principales')
+```
+
+Destacan G4 con mantenimiento vehicular y pasajes aéreos, G1 con infraestructura comunitaria, G2 con edificios e infraestructura vial, y G3 con seguros y mantenimiento vehicular. Los residuos permiten reconocer combinaciones sobrerrepresentadas, sin inferir causas.
+
+```{r}
+#| fig-cap: "Composición temática probabilística por grupo"
+figura('06_composicion_gamma.png')
+```
+
+```{r}
+tabla(pt |> select(nombre_topico,procedimientos,presupuesto_mediano,oferentes_mediana,un_oferente_pct),'Perfil económico por tópico')
+```
+
+```{r}
+#| fig-cap: "Oferente único según tópico"
+figura('06_oferente_unico_topicos.png')
+```
+
+```{r}
+#| fig-cap: "Presupuesto y participación por tópico"
+figura('06_presupuesto_competencia_topicos.png')
+```
+
+## Criterios de éxito
+
+```{r}
+tabla(tibble(Criterio=c('Registros','Documentos','Métodos','Silueta en prueba','Jaccard medio K-means','Integración'),Meta=c('1000','500','2','0,50','>0,75','Cruzar tópicos y grupos'),Resultado=c(fmt(nrow(base)),fmt(cob$documentos),as.character(n_distinct(indices$metodo)),fmt(sil,3),fmt(jac,3),paste('V =',fmt(asoc$v_cramer,3))),Evaluación=c(ifelse(nrow(base)>=1000,'Cumplido','No alcanzado'),ifelse(cob$documentos>=500,'Cumplido','No alcanzado'),ifelse(n_distinct(indices$metodo)>=2,'Cumplido','No alcanzado'),ifelse(sil>=.5,'Cumplido','No alcanzado'),ifelse(jac>.75,'Cumplido','No alcanzado'),'Cumplido')))
+```
+
+# Ética y limitaciones
+
+Se considera la Ley Orgánica de Protección de Datos Personales (LOPDP), artículos 7, 10 y 20, relativos a legitimidad, principios del tratamiento y valoraciones automatizadas [@lopdp2021]. El carácter público de una fuente no elimina obligaciones de finalidad, minimización, proporcionalidad y seguridad. Debe documentarse la base legitimadora aplicable y revisar los archivos antes de divulgarlos.
+
+Se excluyeron identificadores personales de las variables de agrupamiento. OCID se empleó para enlazar procedimientos; la limpieza textual eliminó correos, URL y números. La base de divulgación omite identificadores directos y texto completo, pero no garantiza anonimización irreversible: pueden persistir nombres en vocabularios y riesgos de cruce con fuentes públicas. Se recomienda divulgar estadísticas agregadas y restringir el acceso a archivos sin revisar.
+
+El agrupamiento no emplea atributos demográficos sensibles; la unidad es el procedimiento, no la persona. No se evalúan subgrupos demográficos; sí se examinan modalidades y categorías. Una eventual aplicación sobre proveedores requeriría evaluación de impactos y sesgos, garantías legales y supervisión humana. Un oferente único, plazos prolongados o diferencias presupuestarias no demuestran corrupción ni fraude, y los resultados no deben utilizarse para sancionar o excluir automáticamente.
+
+**Limitaciones:** selección por completitud restringida a cuatro modalidades; montos de adjudicación reportados sin estado confirmado; diferencia presupuesto-monto no equivale a ahorro; silueta inferior a la meta y Gap favorable a un grupo; advertencias de transferencia rápida en algunos ajustes K-means; textos cortos y variantes ortográficas (cantón/canton); tópicos parcialmente superpuestos; etiquetas interpretativas; falta de tercer conjunto independiente para LDA final; textos repetidos y carácter exploratorio de la asociación; alcance limitado a publicaciones de 2025. No se presume representatividad nacional ni estabilidad temporal.
+
+# Recomendaciones institucionales y despliegue
+
+Las unidades de contratación pueden utilizar los perfiles como referencia para comparar procedimientos similares y revisar condiciones de participación. Se recomienda priorizar el estudio de mercados relacionados con mantenimiento vehicular, eventos culturales y pasajes, examinando requisitos técnicos, difusión, disponibilidad de proveedores y plazos, sin presumir irregularidades. Los presupuestos deben compararse entre modalidades y objetos semejantes; no deben interpretarse diferencias con montos reportados como ahorro confirmado.
+
+Un tablero institucional podría mostrar medianas de presupuesto, oferentes y plazos, proporción de oferente único, cobertura de datos y distribución temática. La actualización periódica debe incluir auditoría de calidad, aplicación de transformaciones guardadas, asignación a centroides, inferencia temática, revisión de estabilidad y supervisión humana. Antes de cualquier publicación deben revisarse riesgos de reidentificación. Esta propuesta es un diseño de despliegue, no un sistema implementado.
+
+## Conclusiones
+
+La integración de datos abiertos, K-means, Ward y minería de textos permitió construir perfiles económicos y temáticos complementarios. Los resultados de estabilidad apoyan la utilidad exploratoria de K-means, aunque no se alcanzó el criterio deseable de silueta. LDA permitió reconocer ámbitos de contratación y vincularlos con participación y presupuesto. La asociación observada justifica análisis institucionales contextualizados, no decisiones automáticas ni inferencias causales.
+
+# Referencias {.unnumbered}
+
+::: {#refs}
+:::
+
+# Anexos {.unnumbered}
+
+## Scripts y reproducibilidad
+
+Los scripts `01_integracion.R`, `02_diagnostico.R`, `03_preparacion.R`, `04_agrupamiento.R`, `05_mineria_textos.R` y `06_integracion_resultados.R` contienen el flujo completo. Los ajustes largos se guardaron mediante `saveRDS()` y este informe lee resultados persistidos sin reentrenar. Las rutas del informe son relativas. Antes de entregar se deben eliminar las rutas absolutas de los scripts auxiliares, documentar la URL exacta de descarga y comprobar el renderizado en otro equipo. Los datos y resultados que contengan información personal requieren revisión antes de compartirse.
+
+## Aportes individuales
+
+| Integrante | Aporte efectivamente realizado |
+|---|---|
+| Luis Suntaxi Carrera | COMPLETAR |
+| Integrante 2 | COMPLETAR |
+| Integrante 3 | COMPLETAR |
+| Integrante 4 | COMPLETAR |
+
+## Uso de inteligencia artificial
+
+Se utilizó ChatGPT para apoyar la planificación, adaptación de los laboratorios, diagnóstico de errores, interpretación preliminar y redacción. Los resultados se generaron ejecutando los scripts en RStudio con datos del SERCOP. Cada integrante debe verificar el contenido y poder explicar el código y las decisiones adoptadas.
+
+## Información de sesión
+
+```{r}
+sessionInfo()
+```
